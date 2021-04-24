@@ -7,6 +7,7 @@ import com.ruoyi.common.core.annotation.Excel.ColumnType;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,6 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author ruoyi
  */
+@Data
 public class SysConfig extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
@@ -22,9 +24,9 @@ public class SysConfig extends BaseEntity {
   /**
    * 参数主键
    */
-  @TableId(type = IdType.ASSIGN_UUID)
+  @TableId(type = IdType.ASSIGN_ID)
   @Excel(name = "参数主键", cellType = ColumnType.NUMERIC)
-  private Long configId;
+  private String configId;
 
   /**
    * 参数名称
@@ -49,14 +51,6 @@ public class SysConfig extends BaseEntity {
    */
   @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
   private String configType;
-
-  public Long getConfigId() {
-    return configId;
-  }
-
-  public void setConfigId(Long configId) {
-    this.configId = configId;
-  }
 
   @NotBlank(message = "参数名称不能为空")
   @Size(min = 0, max = 100, message = "参数名称不能超过100个字符")

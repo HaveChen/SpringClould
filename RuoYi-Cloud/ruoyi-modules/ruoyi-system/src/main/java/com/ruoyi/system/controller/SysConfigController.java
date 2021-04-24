@@ -61,8 +61,8 @@ public class SysConfigController extends BaseController {
    * 根据参数编号获取详细信息
    */
   @GetMapping(value = "/{configId}")
-  public AjaxResult getInfo(@PathVariable Long configId) {
-    return AjaxResult.success(configService.selectConfigById(configId));
+  public AjaxResult getInfo(@PathVariable String configId) {
+    return AjaxResult.success(configService.getById(configId));
   }
 
   /**
@@ -107,7 +107,7 @@ public class SysConfigController extends BaseController {
   @PreAuthorize(hasPermi = "system:config:remove")
   @Log(title = "参数管理", businessType = BusinessType.DELETE)
   @DeleteMapping("/{configIds}")
-  public AjaxResult remove(@PathVariable Long[] configIds) {
+  public AjaxResult remove(@PathVariable String[] configIds) {
     return toAjax(configService.deleteConfigByIds(configIds));
   }
 
