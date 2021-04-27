@@ -34,6 +34,7 @@ public class BlackListUrlFilter extends AbstractGatewayFilterFactory<BlackListUr
     };
   }
 
+  
   public BlackListUrlFilter() {
     super(Config.class);
   }

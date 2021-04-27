@@ -38,7 +38,7 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory<Object> {
 
   @Override
   public GatewayFilter apply(Object config) {
-    System.out.println("ValidateCodeService...........");
+    System.out.println("ValiGatewayFilterChaindateCodeService...........");
     return (exchange, chain) -> {
       ServerHttpRequest request = exchange.getRequest();
       // 非登录请求，不处理
