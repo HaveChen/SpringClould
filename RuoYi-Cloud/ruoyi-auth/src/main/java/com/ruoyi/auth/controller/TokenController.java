@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TokenController {
-
+    
   @Autowired
   private TokenService tokenService;
 
