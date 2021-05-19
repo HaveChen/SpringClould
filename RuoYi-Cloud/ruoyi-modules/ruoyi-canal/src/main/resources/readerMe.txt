@@ -1,0 +1,22 @@
+Canle能做什么：https://blog.csdn.net/yehongzhi1994/article/details/107880162
+但是canal的数据同步不是全量的，而是增量。基于binary log增量订阅和消费，canal可以做：
+①数据库镜像
+②数据库实时备份
+③索引构建和实时维护
+④业务cache(缓存)刷新
+⑤带业务逻辑的增量数据处理
+
+
+
+安装使用Canal需要提前做如下事情：
+①按照canal服务
+②设置mysql参数
+③mysql新增canal用户
+https://www.freesion.com/article/8677919361/
+
+
+使用步骤
+①：新增一个实体类，实现EntryHandler接口
+②：配置注解@Compent，让Spring容器管理
+③：配置注解@Canaltable指定当前监听的table
+

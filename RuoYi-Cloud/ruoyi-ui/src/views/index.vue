@@ -33,6 +33,12 @@
           <span>更新日志</span>
         </div>
         <el-collapse accordion>
+          <el-collapse-item title="v2.5.2 - 2021-05-18">
+            <ol>
+              <li>增加Canal的支持</li>
+              <li>同步2021-05-11版本</li>
+            </ol>
+          </el-collapse-item>
           <el-collapse-item title="v2.5.1 - 2021-04-24">
             <ol>
               <li>增加MybatisPlus支持</li>

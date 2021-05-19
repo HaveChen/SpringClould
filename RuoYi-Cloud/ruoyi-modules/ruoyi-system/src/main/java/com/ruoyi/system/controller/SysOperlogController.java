@@ -1,5 +1,14 @@
 package com.ruoyi.system.controller;
 
+import com.ruoyi.common.core.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.web.controller.BaseController;
+import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.ruoyi.common.core.web.page.TableDataInfo;
+import com.ruoyi.common.log.annotation.Log;
+import com.ruoyi.common.log.enums.BusinessType;
+import com.ruoyi.common.security.annotation.PreAuthorize;
+import com.ruoyi.system.api.domain.SysOperLog;
+import com.ruoyi.system.service.ISysOperLogService;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -11,66 +20,53 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.ruoyi.common.core.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.web.controller.BaseController;
-import com.ruoyi.common.core.web.domain.AjaxResult;
-import com.ruoyi.common.core.web.page.TableDataInfo;
-import com.ruoyi.common.log.annotation.Log;
-import com.ruoyi.common.log.enums.BusinessType;
-import com.ruoyi.common.security.annotation.PreAuthorize;
-import com.ruoyi.system.api.domain.SysOperLog;
-import com.ruoyi.system.service.ISysOperLogService;
 
 /**
  * 操作日志记录
- * 
+ *
  * @author ruoyi
  */
 @RestController
 @RequestMapping("/operlog")
-public class SysOperlogController extends BaseController
-{
-    @Autowired
-    private ISysOperLogService operLogService;
+public class SysOperlogController extends BaseController {
 
-    @PreAuthorize(hasPermi = "system:operlog:list")
-    @GetMapping("/list")
-    public TableDataInfo list(SysOperLog operLog)
-    {
-        startPage();
-        List<SysOperLog> list = operLogService.selectOperLogList(operLog);
-        return getDataTable(list);
-    }
+  @Autowired
+  private ISysOperLogService operLogService;
 
-    @Log(title = "操作日志", businessType = BusinessType.EXPORT)
-    @PreAuthorize(hasPermi = "system:operlog:export")
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, SysOperLog operLog) throws IOException
-    {
-        List<SysOperLog> list = operLogService.selectOperLogList(operLog);
-        ExcelUtil<SysOperLog> util = new ExcelUtil<SysOperLog>(SysOperLog.class);
-        util.exportExcel(response, list, "操作日志");
-    }
+  @PreAuthorize(hasPermi = "system:operlog:list")
+  @GetMapping("/list")
+  public TableDataInfo list(SysOperLog operLog) {
+    startPage();
+    List<SysOperLog> list = operLogService.selectOperLogList(operLog);
+    return getDataTable(list);
+  }
 
-    @PreAuthorize(hasPermi = "system:operlog:remove")
-    @DeleteMapping("/{operIds}")
-    public AjaxResult remove(@PathVariable Long[] operIds)
-    {
-        return toAjax(operLogService.deleteOperLogByIds(operIds));
-    }
+  @Log(title = "操作日志", businessType = BusinessType.EXPORT)
+  @PreAuthorize(hasPermi = "system:operlog:export")
+  @PostMapping("/export")
+  public void export(HttpServletResponse response, SysOperLog operLog) throws IOException {
+    List<SysOperLog> list = operLogService.selectOperLogList(operLog);
+    ExcelUtil<SysOperLog> util = new ExcelUtil<SysOperLog>(SysOperLog.class);
+    util.exportExcel(response, list, "操作日志");
+  }
 
-    @PreAuthorize(hasPermi = "system:operlog:remove")
-    @Log(title = "操作日志", businessType = BusinessType.CLEAN)
-    @DeleteMapping("/clean")
-    public AjaxResult clean()
-    {
-        operLogService.cleanOperLog();
-        return AjaxResult.success();
-    }
+  @Log(title = "操作日志", businessType = BusinessType.DELETE)
+  @PreAuthorize(hasPermi = "system:operlog:remove")
+  @DeleteMapping("/{operIds}")
+  public AjaxResult remove(@PathVariable Long[] operIds) {
+    return toAjax(operLogService.deleteOperLogByIds(operIds));
+  }
 
-    @PostMapping
-    public AjaxResult add(@RequestBody SysOperLog operLog)
-    {
-        return toAjax(operLogService.insertOperlog(operLog));
-    }
+  @PreAuthorize(hasPermi = "system:operlog:remove")
+  @Log(title = "操作日志", businessType = BusinessType.CLEAN)
+  @DeleteMapping("/clean")
+  public AjaxResult clean() {
+    operLogService.cleanOperLog();
+    return AjaxResult.success();
+  }
+
+  @PostMapping
+  public AjaxResult add(@RequestBody SysOperLog operLog) {
+    return toAjax(operLogService.insertOperlog(operLog));
+  }
 }

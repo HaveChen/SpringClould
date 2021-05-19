@@ -39,11 +39,22 @@
     <mybatis-plus.versin>3.3.0</mybatis-plus.versin>
     <lombok.version>1.18.12</lombok.version>
     <oauth2.version>2.2.4.RELEASE</oauth2.version>
+    <canal.version>1.2.1-RELEASE</canal.version>
   </properties>
 
   <!-- 依赖声明 -->
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>top.javatool</groupId>
+        <artifactId>canal-spring-boot-starter</artifactId>
+        <version>${canal.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>top.javatool</groupId>
+        <artifactId>canal-spring-boot-starter</artifactId>
+        <version>1.2.1-RELEASE</version>
+      </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-oauth2</artifactId>

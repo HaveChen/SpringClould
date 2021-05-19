@@ -1,0 +1,15 @@
+--->用redis做多级数据缓存
+1、开启缓存使用
+@EnableCaching
+2、在对应方法或者类上面添加缓存相关配置,如果没有数据，则加入缓存中；如果有数据，直接加载缓存中的数据
+区别@CachePut，负责每次执行的时候加入或者覆盖缓存数据，不获取缓存值（修改操作可以使用）
+@Cacheable(cacheNames = "a-items-dict", key = "#dictId")
+3、用于类和方法上，执行完后清除缓存中的key(delete数据时可以用)
+@CacheEvict
+4、缓存公共配置（放在类上面）比如配置公共的cacheNames等等
+@CacheConfig(cacheNames = "sys-dictData")
+
+
+
+
+
