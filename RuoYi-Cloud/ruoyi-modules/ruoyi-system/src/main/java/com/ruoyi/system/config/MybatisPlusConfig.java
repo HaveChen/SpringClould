@@ -1,8 +1,13 @@
 package com.ruoyi.system.config;
 
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
+import com.ruoyi.common.core.handler.MyTenantLineHandler;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,7 +23,16 @@ public class MybatisPlusConfig {
    */
   @Bean
   public PaginationInterceptor paginationInterceptor() {
-    return new PaginationInterceptor();
+    PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+    // 创建SQL解析器集合
+    List<ISqlParser> sqlParserList = new ArrayList<>();
+    // 创建租户SQL解析器
+    TenantSqlParser tenantSqlParser = new TenantSqlParser();
+    // 设置租户处理器
+    tenantSqlParser.setTenantHandler(new MyTenantLineHandler());
+    sqlParserList.add(tenantSqlParser);
+    paginationInterceptor.setSqlParserList(sqlParserList);
+    return paginationInterceptor;
   }
 
   /**
