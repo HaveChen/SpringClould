@@ -29,7 +29,7 @@ public class MyTenantLineHandler implements TenantHandler {
     return "tenant_id";
   }
 
-  //此处可以配置忽略多租户查询的表 true 表示过滤数据
+  //此处可以配置忽略多租户查询的表 true 表示不过滤
   @Override
   public boolean doTableFilter(String tableName) {
     if (tableNameList.contains(tableName)) {
