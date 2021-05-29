@@ -109,6 +109,7 @@ public class SysDictDataController extends BaseController {
   @Log(title = "字典类型", businessType = BusinessType.DELETE)
   @DeleteMapping("/{dictCodes}")
   public AjaxResult remove(@PathVariable Long[] dictCodes) {
-    return toAjax(dictDataService.deleteDictDataByIds(dictCodes));
+    dictDataService.deleteDictDataByIds(dictCodes);
+    return success();
   }
 }

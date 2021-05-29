@@ -107,8 +107,9 @@ public class SysConfigController extends BaseController {
   @PreAuthorize(hasPermi = "system:config:remove")
   @Log(title = "参数管理", businessType = BusinessType.DELETE)
   @DeleteMapping("/{configIds}")
-  public AjaxResult remove(@PathVariable String[] configIds) {
-    return toAjax(configService.deleteConfigByIds(configIds));
+  public AjaxResult remove(@PathVariable Long[] configIds) {
+    configService.deleteConfigByIds(configIds);
+    return success();
   }
 
   /**
@@ -116,9 +117,9 @@ public class SysConfigController extends BaseController {
    */
   @PreAuthorize(hasPermi = "system:config:remove")
   @Log(title = "参数管理", businessType = BusinessType.CLEAN)
-  @DeleteMapping("/clearCache")
-  public AjaxResult clearCache() {
-    configService.clearCache();
+  @DeleteMapping("/refreshCache")
+  public AjaxResult refreshCache() {
+    configService.resetConfigCache();
     return AjaxResult.success();
   }
 }

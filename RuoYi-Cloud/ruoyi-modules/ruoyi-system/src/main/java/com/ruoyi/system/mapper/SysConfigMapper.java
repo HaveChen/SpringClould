@@ -35,4 +35,5 @@ public interface SysConfigMapper extends BaseMapper<SysConfig> {
    */
   public SysConfig checkConfigKeyUnique(String configKey);
 
+
 }

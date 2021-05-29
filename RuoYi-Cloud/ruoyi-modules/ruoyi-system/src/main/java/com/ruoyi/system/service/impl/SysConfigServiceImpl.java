@@ -10,7 +10,6 @@ import com.ruoyi.common.redis.service.RedisService;
 import com.ruoyi.system.domain.SysConfig;
 import com.ruoyi.system.mapper.SysConfigMapper;
 import com.ruoyi.system.service.ISysConfigService;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -37,10 +36,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
    */
   @PostConstruct
   public void init() {
-    List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
-    for (SysConfig config : configsList) {
-      redisService.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
-    }
+    loadingConfigCache();
   }
 
   /**
@@ -113,28 +109,44 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
    * @return 结果
    */
   @Override
-  public int deleteConfigByIds(String[] configIds) {
-    for (String configId : configIds) {
+  public void deleteConfigByIds(Long[] configIds) {
+    for (Long configId : configIds) {
       SysConfig config = configMapper.selectById(configId);
       if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
         throw new CustomException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
       }
+      configMapper.deleteById(configId);
+      redisService.deleteObject(getCacheKey(config.getConfigKey()));
     }
-    int count = configMapper.deleteBatchIds(Arrays.asList(configIds));
-    if (count > 0) {
-      Collection<String> keys = redisService.keys(Constants.SYS_CONFIG_KEY + "*");
-      redisService.deleteObject(keys);
-    }
-    return count;
   }
 
   /**
-   * 清空缓存数据
+   * 加载参数缓存数据
    */
   @Override
-  public void clearCache() {
+  public void loadingConfigCache() {
+    List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
+    for (SysConfig config : configsList) {
+      redisService.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
+    }
+  }
+
+  /**
+   * 清空参数缓存数据
+   */
+  @Override
+  public void clearConfigCache() {
     Collection<String> keys = redisService.keys(Constants.SYS_CONFIG_KEY + "*");
     redisService.deleteObject(keys);
+  }
+
+  /**
+   * 重置参数缓存数据
+   */
+  @Override
+  public void resetConfigCache() {
+    clearConfigCache();
+    loadingConfigCache();
   }
 
   /**

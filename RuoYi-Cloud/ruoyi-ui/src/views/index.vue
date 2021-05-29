@@ -33,6 +33,12 @@
           <span>更新日志</span>
         </div>
         <el-collapse accordion>
+          <el-collapse-item title="v2.5.3 - 2021-05-29">
+            <ol>
+              <li>增加多租户帮助类：MyTenantLineHandler.java</li>
+              <li>同步2021-05-27版本</li>
+            </ol>
+          </el-collapse-item>
           <el-collapse-item title="v2.5.2 - 2021-05-18">
             <ol>
               <li>增加Canal的支持</li>
