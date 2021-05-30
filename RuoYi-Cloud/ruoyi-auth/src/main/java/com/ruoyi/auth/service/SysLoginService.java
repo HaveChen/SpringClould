@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SysLoginService {
-    
+
   @Autowired
   private RemoteLogService remoteLogService;
 
@@ -53,7 +53,15 @@ public class SysLoginService {
     R<LoginUser> userResult = remoteUserService.getUserInfo(username);
 
     if (R.FAIL == userResult.getCode()) {
-      throw new BaseException(userResult.getMsg());
+      // 用户名密码查询失败后，用手机号码查询
+      if (username.length() == 11) {
+        userResult = remoteUserService.getUserInfoByPhone(username);
+      } else {
+        throw new BaseException(userResult.getMsg());
+      }
+      if (R.FAIL == userResult.getCode()) {
+        throw new BaseException(userResult.getMsg());
+      }
     }
 
     if (StringUtils.isNull(userResult) || StringUtils.isNull(userResult.getData())) {

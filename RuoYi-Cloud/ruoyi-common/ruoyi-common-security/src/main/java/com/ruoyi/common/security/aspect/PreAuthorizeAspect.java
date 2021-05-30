@@ -25,7 +25,7 @@ import org.springframework.util.StringUtils;
 @Aspect
 @Component
 public class PreAuthorizeAspect {
-    
+
   @Autowired
   private TokenService tokenService;
 

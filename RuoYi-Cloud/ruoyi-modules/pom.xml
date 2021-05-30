@@ -15,6 +15,7 @@
     <module>ruoyi-job</module>
     <module>ruoyi-file</module>
     <module>ruoyi-canal</module>
+    <module>ruoyi-standard</module>
   </modules>
 
   <artifactId>ruoyi-modules</artifactId>

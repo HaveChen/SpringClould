@@ -1,4 +1,4 @@
-package com.ruoyi.system.config;
+package com.ruoyi.standard.config;
 
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
