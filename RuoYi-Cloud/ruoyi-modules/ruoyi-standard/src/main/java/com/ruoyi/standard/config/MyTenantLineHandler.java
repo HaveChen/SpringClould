@@ -1,4 +1,4 @@
-package com.ruoyi.common.core.handler;
+package com.ruoyi.standard.config;
 
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import java.util.Arrays;
@@ -11,7 +11,12 @@ public class MyTenantLineHandler implements TenantHandler {
   private static List<String> tableNameList;
 
   static {
-    tableNameList = Arrays.asList("sys_role");
+    //初始化不需要多租户过滤的表
+    tableNameList = Arrays
+        .asList("std_admin_class", "std_class_type", "std_course",
+            "std_grade", "std_grade_leader", "std_graduate", "std_school_year", "std_study_level",
+            "std_subject", "std_subject_classify", "std_subject_combine", "std_subject_type",
+            "std_teach_class", "std_teacher", "std_teacher_title", "std_term");
   }
 
   @Override
@@ -33,8 +38,8 @@ public class MyTenantLineHandler implements TenantHandler {
   @Override
   public boolean doTableFilter(String tableName) {
     if (tableNameList.contains(tableName)) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 }
