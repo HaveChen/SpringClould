@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdAdminClassMapper">
+  <resultMap type="StdAdminClass" id="StdAdminClassResult">
+    <result property="classId" column="class_id"/>
+    <result property="className" column="class_name"/>
+    <result property="classCode" column="class_code"/>
+    <result property="classTypeCode" column="class_type_code"/>
+    <result property="deptCode" column="dept_code"/>
+    <result property="deptId" column="dept_Id"/>
+    <result property="graduateCode" column="graduate_code"/>
+    <result property="schoolYearCode" column="school_year_code"/>
+    <result property="gradeCode" column="grade_code"/>
+    <result property="termCode" column="term_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdAdminClassVo">
+        select class_id, class_name, class_code, class_type_code, dept_code,dept_id, graduate_code, school_year_code, grade_code, term_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_admin_class
+    </sql>
+
+  <select id="selectStdAdminClassList" parameterType="StdAdminClass"
+    resultMap="StdAdminClassResult">
+    <include refid="selectStdAdminClassVo"/>
+    <where>
+      <if test="className != null  and className != ''">and class_name like concat('%',
+        #{className}, '%')
+      </if>
+      <if test="classCode != null  and classCode != ''">and class_code like concat('%',
+        #{classCode}, '%')
+      </if>
+      <if test="graduateCode != null  and graduateCode != ''">and graduate_code = #{graduateCode}
+      </if>
+      <if test="schoolYearCode != null  and schoolYearCode != ''">and school_year_code =
+        #{schoolYearCode}
+      </if>
+      <if test="gradeCode != null  and gradeCode != ''">and grade_code = #{gradeCode}
+      </if>
+      <if test="termCode != null  and termCode != ''">and term_code = #{termCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

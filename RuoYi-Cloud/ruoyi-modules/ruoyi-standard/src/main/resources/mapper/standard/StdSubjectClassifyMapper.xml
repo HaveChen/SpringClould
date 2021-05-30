@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdSubjectClassifyMapper">
+  <resultMap type="StdSubjectClassify" id="StdSubjectClassifyResult">
+    <result property="subjectClassifyId" column="subject_classify_id"/>
+    <result property="subjectClassifyName" column="subject_classify_name"/>
+    <result property="subjectClassifyCode" column="subject_classify_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdSubjectClassifyVo">
+        select subject_classify_id, subject_classify_name, subject_classify_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_subject_classify
+    </sql>
+
+  <select id="selectStdSubjectClassifyList" parameterType="StdSubjectClassify"
+    resultMap="StdSubjectClassifyResult">
+    <include refid="selectStdSubjectClassifyVo"/>
+    <where>
+      <if test="subjectClassifyName != null  and subjectClassifyName != ''">and
+        subject_classify_name like concat('%',
+        #{subjectClassifyName}, '%')
+      </if>
+      <if test="subjectClassifyCode != null  and subjectClassifyCode != ''">and
+        subject_classify_code like concat('%',
+        #{subjectClassifyCode}, '%')
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

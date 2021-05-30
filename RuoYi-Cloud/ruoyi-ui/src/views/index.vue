@@ -33,6 +33,11 @@
           <span>更新日志</span>
         </div>
         <el-collapse accordion>
+          <el-collapse-item title="v2.5.4 - 2021-05-30">
+            <ol>
+              <li>新增基础数据管理代码</li>
+            </ol>
+          </el-collapse-item>
           <el-collapse-item title="v2.5.3 - 2021-05-29">
             <ol>
               <li>增加多租户帮助类：MyTenantLineHandler.java</li>

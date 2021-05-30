@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdSubjectMapper">
+  <resultMap type="StdSubject" id="StdSubjectResult">
+    <result property="subjectId" column="subject_id"/>
+    <result property="subjectName" column="subject_name"/>
+    <result property="subjectCode" column="subject_code"/>
+    <result property="subjectOtherName" column="subject_other_name"/>
+    <result property="subjectTypeCode" column="subject_type_code"/>
+    <result property="subjectSign" column="subject_sign"/>
+    <result property="subjectClassifyCode" column="subject_classify_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdSubjectVo">
+        select subject_id, subject_name, subject_code, subject_other_name, subject_type_code, subject_sign, subject_classify_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_subject
+    </sql>
+
+  <select id="selectStdSubjectList" parameterType="StdSubject" resultMap="StdSubjectResult">
+    <include refid="selectStdSubjectVo"/>
+    <where>
+      <if test="subjectName != null  and subjectName != ''">and subject_name like concat('%',
+        #{subjectName}, '%')
+      </if>
+      <if test="subjectCode != null  and subjectCode != ''">and subject_code like concat('%',
+        #{subjectCode}, '%')
+      </if>
+      <if test="subjectOtherName != null  and subjectOtherName != ''">and subject_other_name =
+        #{subjectOtherName}
+      </if>
+      <if test="subjectTypeCode != null  and subjectTypeCode != ''">and subject_type_code =
+        #{subjectTypeCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>
