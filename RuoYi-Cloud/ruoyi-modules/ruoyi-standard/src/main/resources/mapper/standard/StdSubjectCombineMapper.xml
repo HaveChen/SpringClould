@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdSubjectCombineMapper">
+  <resultMap type="StdSubjectCombine" id="StdSubjectCombineResult">
+    <result property="subjectCombineId" column="subject_combine_id"/>
+    <result property="subjectCombineName" column="subject_combine_name"/>
+    <result property="subjectCombineCode" column="subject_combine_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdSubjectCombineVo">
+        select subject_combine_id, subject_combine_name, subject_combine_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_subject_combine
+    </sql>
+
+  <select id="selectStdSubjectCombineList" parameterType="StdSubjectCombine"
+    resultMap="StdSubjectCombineResult">
+    <include refid="selectStdSubjectCombineVo"/>
+    <where>
+      <if test="subjectCombineName != null  and subjectCombineName != ''">and subject_combine_name
+        like concat('%',
+        #{subjectCombineName}, '%')
+      </if>
+      <if test="subjectCombineCode != null  and subjectCombineCode != ''">and subject_combine_code
+        like concat('%',
+        #{subjectCombineCode}, '%')
+      </if>
+    </where>
+    order by order_num
+  </select>
+  <select id="loadStdSubjectCombine"
+    resultType="com.ruoyi.standard.domain.StdSubjectCombine">
+  select
+      subject_combine_id, subject_combine_name, subject_combine_code,
+      order_num, remark, status, del_flag, create_by, create_time, update_by,update_time
+  from std_subject_combine
+  where status=0
+  </select>
+
+
+</mapper>

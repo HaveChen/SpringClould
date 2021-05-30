@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdSchoolYearMapper">
+  <resultMap type="StdSchoolYear" id="StdSchoolYearResult">
+    <result property="schoolYearId" column="school_year_id"/>
+    <result property="schoolYearName" column="school_year_name"/>
+    <result property="schoolYearCode" column="school_year_code"/>
+    <result property="studyLevelCode" column="study_level_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdSchoolYearVo">
+        select school_year_id, school_year_name, school_year_code, study_level_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_school_year
+    </sql>
+
+  <select id="selectStdSchoolYearList" parameterType="StdSchoolYear"
+    resultMap="StdSchoolYearResult">
+    <include refid="selectStdSchoolYearVo"/>
+    <where>
+      <if test="schoolYearName != null  and schoolYearName != ''">and school_year_name like
+        concat('%',
+        #{schoolYearName}, '%')
+      </if>
+      <if test="schoolYearCode != null  and schoolYearCode != ''">and school_year_code like
+        concat('%',
+        #{schoolYearCode}, '%')
+      </if>
+      <if test="studyLevelCode != null  and studyLevelCode != ''">and study_level_code =
+        #{studyLevelCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

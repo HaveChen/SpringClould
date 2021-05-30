@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdGraduateMapper">
+  <resultMap type="StdGraduate" id="StdGraduateResult">
+    <result property="graduateId" column="graduate_id"/>
+    <result property="graduateName" column="graduate_name"/>
+    <result property="graduateCode" column="graduate_code"/>
+    <result property="studyLevelCode" column="study_level_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdGraduateVo">
+        select graduate_id, graduate_name, graduate_code, study_level_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_graduate
+    </sql>
+
+  <select id="selectStdGraduateList" parameterType="StdGraduate" resultMap="StdGraduateResult">
+    <include refid="selectStdGraduateVo"/>
+    <where>
+      <if test="graduateName != null  and graduateName != ''">and graduate_name like concat('%',
+        #{graduateName}, '%')
+      </if>
+      <if test="graduateCode != null  and graduateCode != ''">and graduate_code like concat('%',
+        #{graduateCode}, '%')
+      </if>
+      <if test="studyLevelCode != null  and studyLevelCode != ''">and study_level_code =
+        #{studyLevelCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

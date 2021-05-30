@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.standard.mapper.StdTeacherMapper">
+  <resultMap type="StdTeacher" id="StdTeacherResult">
+    <result property="teacherId" column="teacher_id"/>
+    <result property="teacherName" column="teacher_name"/>
+    <result property="teacherOtherName" column="teacher_other_name"/>
+    <result property="teacherCode" column="teacher_code"/>
+    <result property="deptCode" column="dept_code"/>
+    <result property="deptId" column="dept_Id"/>
+    <result property="teacherTitleCode" column="teacher_title_code"/>
+    <result property="idcard" column="idcard"/>
+    <result property="gender" column="gender"/>
+    <result property="mobilePhone" column="mobile_phone"/>
+    <result property="landlinePhone" column="landline_phone"/>
+    <result property="email" column="email"/>
+    <result property="startWorkTime" column="start_work_time"/>
+    <result property="subjectCode" column="subject_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectStdTeacherVo">
+        select teacher_id, teacher_name, teacher_other_name, teacher_code,dept_id, dept_code, teacher_title_code, idcard, gender, mobile_phone, landline_phone, email, start_work_time, subject_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from std_teacher
+    </sql>
+
+  <select id="selectStdTeacherList" parameterType="StdTeacher" resultMap="StdTeacherResult">
+    <include refid="selectStdTeacherVo"/>
+    <where>
+      <if test="teacherName != null  and teacherName != ''">and teacher_name like concat('%',
+        #{teacherName}, '%')
+      </if>
+      <if test="teacherCode != null  and teacherCode != ''">and teacher_code like concat('%',
+        #{teacherCode}, '%')
+      </if>
+      <if test="deptCode != null  and deptCode != ''">and dept_code = #{deptCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>
