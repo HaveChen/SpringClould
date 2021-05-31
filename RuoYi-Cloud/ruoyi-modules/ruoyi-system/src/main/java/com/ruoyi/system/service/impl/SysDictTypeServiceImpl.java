@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ruoyi
  */
 @Service
-@CacheConfig(cacheNames = "sys-dictData")
 public class SysDictTypeServiceImpl implements ISysDictTypeService {
 
   @Autowired
@@ -89,7 +88,6 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
    * @return 字典类型
    */
   @Override
-  @Cacheable(key = "#dictId")
   public SysDictType selectDictTypeById(Long dictId) {
     return dictTypeMapper.selectDictTypeById(dictId);
   }

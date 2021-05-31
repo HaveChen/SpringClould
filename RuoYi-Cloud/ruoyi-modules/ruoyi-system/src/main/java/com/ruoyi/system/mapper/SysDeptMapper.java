@@ -1,7 +1,10 @@
 package com.ruoyi.system.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruoyi.system.config.MybatisRedisCache;
 import java.util.List;
 
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Param;
 
 import com.ruoyi.system.api.domain.SysDept;
@@ -11,7 +14,7 @@ import com.ruoyi.system.api.domain.SysDept;
  * 
  * @author ruoyi
  */
-public interface SysDeptMapper
+public interface SysDeptMapper extends BaseMapper<SysDept>
 {
     /**
      * 查询部门管理数据

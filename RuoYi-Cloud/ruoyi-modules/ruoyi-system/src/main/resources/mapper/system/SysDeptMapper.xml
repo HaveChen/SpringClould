@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.SysDeptMapper">
 
+  <cache type="com.ruoyi.system.config.MybatisRedisCache"/>
   <resultMap type="SysDept" id="SysDeptResult">
     <id property="deptId" column="dept_id"/>
     <result property="parentId" column="parent_id"/>

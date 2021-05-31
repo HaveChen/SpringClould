@@ -3,6 +3,8 @@ package com.ruoyi.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.system.domain.SysConfig;
 import java.util.List;
+import org.apache.ibatis.annotations.CacheNamespace;
+import org.springframework.data.redis.cache.RedisCache;
 
 /**
  * 参数配置 数据层
