@@ -1,5 +1,6 @@
 package com.ruoyi.auth.service;
 
+import com.ruoyi.common.core.constant.CacheConstants;
 import com.ruoyi.common.core.constant.Constants;
 import com.ruoyi.common.core.constant.UserConstants;
 import com.ruoyi.common.core.domain.R;
@@ -7,11 +8,14 @@ import com.ruoyi.common.core.enums.UserStatus;
 import com.ruoyi.common.core.exception.BaseException;
 import com.ruoyi.common.core.utils.SecurityUtils;
 import com.ruoyi.common.core.utils.StringUtils;
+import com.ruoyi.common.redis.service.RedisService;
 import com.ruoyi.system.api.RemoteLogService;
 import com.ruoyi.system.api.RemoteUserService;
 import com.ruoyi.system.api.domain.SysUser;
 import com.ruoyi.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,6 +31,20 @@ public class SysLoginService {
 
   @Autowired
   private RemoteUserService remoteUserService;
+
+  @Autowired
+  private RedisService redisService;
+
+  /**
+   * 是否开启登录限制
+   */
+  @Value("${ruoyi.login.limit:false}")
+  private boolean openLoginLimit;
+  /**
+   * 多人地登录策略：1 剔除前面那个人  2 提示已经登录，不予许再次登录
+   */
+  @Value("${ruoyi.login.limit-tactics:1}")
+  private int limitTactics;
 
   /**
    * 登录
@@ -82,6 +100,20 @@ public class SysLoginService {
     if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
       remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户密码错误");
       throw new BaseException("用户不存在/密码错误");
+    }
+    //账号验证完成,看是否开启了验证
+    if(openLoginLimit){
+      String loginUserName=userResult.getData().getSysUser().getUserName();
+      String token = redisService.getCacheObject(loginUserName);
+      if(StringUtils.isNotEmpty(token)){
+        //剔除前面登录的人
+        if(limitTactics==1){
+          redisService.deleteObject(CacheConstants.LOGIN_TOKEN_KEY+token);
+          redisService.deleteObject(loginUserName);
+        }else{
+          throw new BaseException("此用户已经登录，不允许账号多地登录。");
+        }
+      }
     }
     remoteLogService.saveLogininfor(username, Constants.LOGIN_SUCCESS, "登录成功");
     return userInfo;

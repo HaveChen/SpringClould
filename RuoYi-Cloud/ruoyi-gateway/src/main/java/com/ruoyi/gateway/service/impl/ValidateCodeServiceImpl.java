@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FastByteArrayOutputStream;
 
@@ -36,6 +37,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
   private RedisService redisService;
 
   // 验证码类型
+  @Value("${ruoyi.kaptcha.type:math}")
   private String captchaType = "math";
 
   /**

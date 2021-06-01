@@ -50,6 +50,8 @@ public class TokenService {
     map.put("access_token", token);
     map.put("expires_in", EXPIRE_TIME);
     redisService.setCacheObject(ACCESS_TOKEN + token, loginUser, EXPIRE_TIME, TimeUnit.SECONDS);
+    //添加用户名和token的缓存，用来控制多次登录问题
+    redisService.setCacheObject(loginUser.getUsername(), token, EXPIRE_TIME, TimeUnit.SECONDS);
     return map;
   }
 
