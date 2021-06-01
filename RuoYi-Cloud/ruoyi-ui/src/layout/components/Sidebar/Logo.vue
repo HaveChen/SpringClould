@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '若依管理系统',
+      title: '增值评价系统',
       logo: logoImg
     }
   }

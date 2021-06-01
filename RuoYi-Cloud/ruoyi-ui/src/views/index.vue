@@ -33,6 +33,12 @@
           <span>更新日志</span>
         </div>
         <el-collapse accordion>
+          <el-collapse-item title="v2.5.6 - 2021-06-01">
+            <ol>
+              <li>新增多租户管理功能（操作待完善）</li>
+              <li>系统管理模块增加租户过滤功能</li>
+            </ol>
+          </el-collapse-item>
           <el-collapse-item title="v2.5.5 - 2021-05-31">
             <ol>
               <li>新增手机号码登录功能</li>
