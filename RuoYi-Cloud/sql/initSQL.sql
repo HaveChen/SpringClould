@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.08 (64 bit)
 MySQL - 5.7.34-log : Database - ry-system
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -886,7 +887,7 @@ CREATE TABLE `tenant_info_detail` (
   `tenant_info_detail_id` bigint(11) NOT NULL AUTO_INCREMENT,
   `tenant_info_id` bigint(11) DEFAULT NULL COMMENT '关联Id',
   `max_user_num` int(10) DEFAULT '-1' COMMENT '最大用户数量',
-  `max_login_user_num` int(10) DEFAULT '-1' COMMENT '允许最大登录用户数量',
+  `max_login_user_num` int(10) DEFAULT '-1' COMMENT '允许同时登录用户数',
   `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',

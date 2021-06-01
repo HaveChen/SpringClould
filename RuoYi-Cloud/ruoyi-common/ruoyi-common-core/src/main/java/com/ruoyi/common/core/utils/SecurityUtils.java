@@ -19,6 +19,16 @@ public class SecurityUtils {
     String username = ServletUtils.getRequest().getHeader(CacheConstants.DETAILS_USERNAME);
     return ServletUtils.urlDecode(username);
   }
+  /**
+   * 获取租户
+   */
+  //TODO 日志记录获取不到tenantId
+  public static String getTenantId() {
+    String tenantId = ServletUtils.getRequest().getHeader(CacheConstants.DETAILS_TENANTID);
+   if(StringUtils.isEmpty(tenantId))
+     return "0";
+    return ServletUtils.urlDecode(tenantId);
+  }
 
   /**
    * 获取用户ID

@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.common.core.constant.UserConstants;
 import com.ruoyi.common.core.exception.CustomException;
 import com.ruoyi.common.core.utils.StringUtils;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @author ruoyi
  */
 @Service
-public class SysDeptServiceImpl implements ISysDeptService {
+public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper,SysDept> implements ISysDeptService {
 
   @Autowired
   private SysDeptMapper deptMapper;

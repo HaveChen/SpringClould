@@ -1,5 +1,6 @@
 package com.ruoyi.system.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.system.api.domain.SysDictData;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  *
  * @author ruoyi
  */
-public interface SysDictDataMapper {
+public interface SysDictDataMapper  extends BaseMapper<SysDictData> {
 
   /**
    * 根据条件分页查询字典数据

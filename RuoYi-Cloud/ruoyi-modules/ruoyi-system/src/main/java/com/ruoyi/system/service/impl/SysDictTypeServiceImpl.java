@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.common.core.constant.UserConstants;
 import com.ruoyi.common.core.exception.CustomException;
 import com.ruoyi.common.core.utils.StringUtils;
@@ -24,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ruoyi
  */
 @Service
-public class SysDictTypeServiceImpl implements ISysDictTypeService {
+public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper,SysDictType> implements ISysDictTypeService {
 
   @Autowired
   private SysDictTypeMapper dictTypeMapper;

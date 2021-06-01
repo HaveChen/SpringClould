@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TenantInfoDetailMapper">
+
+  <resultMap type="TenantInfoDetail" id="TenantInfoDetailResult">
+    <result property="tenantInfoDetailId" column="tenant_info_detail_id"/>
+    <result property="tenantInfoId" column="tenant_info_id"/>
+    <result property="maxUserNum" column="max_user_num"/>
+    <result property="maxLoginUserNum" column="max_login_user_num"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+    <result property="remark" column="remark"/>
+  </resultMap>
+
+  <sql id="selectTenantInfoDetailVo">
+        select tenant_info_detail_id, tenant_info_id, max_user_num, max_login_user_num, create_by, create_time, update_by, update_time, remark from tenant_info_detail
+    </sql>
+  <select id="selectTenantInfoDetailList" parameterType="TenantInfoDetail"
+    resultMap="TenantInfoDetailResult">
+    <include refid="selectTenantInfoDetailVo"/>
+    <where>
+      <if test="tenantInfoId != null ">and tenant_info_id = #{tenantInfoId}</if>
+    </where>
+  </select>
+</mapper>

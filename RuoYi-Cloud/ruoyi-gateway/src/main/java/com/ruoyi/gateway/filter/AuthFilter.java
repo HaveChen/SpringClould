@@ -67,6 +67,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     JSONObject obj = JSONObject.parseObject(userStr);
     String userid = obj.getString("userid");
     String username = obj.getString("username");
+    String tenantId = obj.getString("tenantId");
     if (StringUtils.isBlank(userid) || StringUtils.isBlank(username)) {
       return setUnauthorizedResponse(exchange, "令牌验证失败");
     }
@@ -76,6 +77,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     // 设置用户信息到请求
     ServerHttpRequest mutableReq = exchange.getRequest().mutate()
         .header(CacheConstants.DETAILS_USER_ID, userid)
+        .header(CacheConstants.DETAILS_TENANTID, ServletUtils.urlEncode(tenantId))
         .header(CacheConstants.DETAILS_USERNAME, ServletUtils.urlEncode(username)).build();
     ServerWebExchange mutableExchange = exchange.mutate().request(mutableReq).build();
 

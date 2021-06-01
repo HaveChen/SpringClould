@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.common.core.constant.UserConstants;
 import com.ruoyi.common.core.exception.CustomException;
 import com.ruoyi.common.core.utils.SecurityUtils;
@@ -19,6 +20,7 @@ import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysUserService;
 import java.util.ArrayList;
 import java.util.List;
+import net.sf.jsqlparser.expression.LongValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ruoyi
  */
 @Service
-public class SysUserServiceImpl implements ISysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements
+    ISysUserService {
 
   private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
@@ -62,6 +65,12 @@ public class SysUserServiceImpl implements ISysUserService {
   @Override
   @DataScope(deptAlias = "d", userAlias = "u")
   public List<SysUser> selectUserList(SysUser user) {
+    String tenantId = SecurityUtils.getTenantId();
+    if(StringUtils.isEmpty(tenantId)){
+      user.setTenantId(0L);
+    }else{
+      user.setTenantId(Long.parseLong(tenantId));
+    }
     return userMapper.selectUserList(user);
   }
 

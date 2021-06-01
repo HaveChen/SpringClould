@@ -31,6 +31,10 @@ public class CacheConstants {
    * 用户名字段
    */
   public static final String DETAILS_USERNAME = "username";
+  /**
+   * 用户名字段
+   */
+  public static final String DETAILS_TENANTID = "tenant_id";
 
   /**
    * 授权信息字段
