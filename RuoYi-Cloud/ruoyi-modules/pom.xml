@@ -16,6 +16,7 @@
     <module>ruoyi-file</module>
     <module>ruoyi-canal</module>
     <module>ruoyi-standard</module>
+    <module>ruoyi-collection</module>
   </modules>
 
   <artifactId>ruoyi-modules</artifactId>

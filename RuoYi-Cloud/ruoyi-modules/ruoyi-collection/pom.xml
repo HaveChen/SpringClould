@@ -9,17 +9,14 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>ruoyi-modules-canal</artifactId>
+  <artifactId>ruoyi-modules-collection</artifactId>
 
   <description>
-    ruoyi-modules-canal 主从复制
+    ruoyi-modules-collection 数据采集
   </description>
 
   <dependencies>
-    <dependency>
-      <groupId>top.javatool</groupId>
-      <artifactId>canal-spring-boot-starter</artifactId>
-    </dependency>
+
     <!-- SpringCloud Ailibaba Nacos -->
     <dependency>
       <groupId>com.alibaba.cloud</groupId>
