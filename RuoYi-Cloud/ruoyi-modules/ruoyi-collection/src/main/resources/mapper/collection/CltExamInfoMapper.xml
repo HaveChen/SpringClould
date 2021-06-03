@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltExamInfoMapper">
+  <resultMap type="CltExamInfo" id="CltExamInfoResult">
+    <result property="examId" column="exam_id"/>
+    <result property="examName" column="exam_name"/>
+    <result property="examShortName" column="exam_short_name"/>
+    <result property="examDate" column="exam_date"/>
+    <result property="examTypeCode" column="exam_type_code"/>
+    <result property="examModeCode" column="exam_mode_code"/>
+    <result property="gradeCode" column="grade_code"/>
+    <result property="schoolYear" column="school_year"/>
+    <result property="schoolYearName" column="school_year_name"/>
+    <result property="graduateCode" column="graduate_code"/>
+    <result property="termCode" column="term_code"/>
+    <result property="deptAllCode" column="dept_all_code"/>
+    <result property="deptCode" column="dept_code"/>
+    <result property="deptId" column="dept_id"/>
+    <result property="deptTypeCode" column="dept_type_code"/>
+    <result property="studentStatus" column="student_status"/>
+    <result property="itemCount" column="item_count"/>
+    <result property="cjCount" column="cj_count"/>
+    <result property="irtCount" column="irt_count"/>
+    <result property="checkStatus" column="check_status"/>
+    <result property="examStatus" column="exam_status"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltExamInfoVo">
+        select exam_id, exam_name, exam_short_name, exam_date, exam_type_code, exam_mode_code, grade_code, school_year, school_year_name, graduate_code, term_code, dept_all_code, dept_code, dept_id, dept_type_code, student_status, item_count, cj_count, irt_count, check_status, exam_status, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from clt_exam_info
+    </sql>
+  <select id="selectCltExamInfoList" parameterType="CltExamInfo" resultMap="CltExamInfoResult">
+    <include refid="selectCltExamInfoVo"/>
+    <where>
+      <if test="examName != null  and examName != ''">and exam_name like concat('%',
+        #{examName}, '%')
+      </if>
+      <if test="examShortName != null  and examShortName != ''">and exam_short_name like concat('%',
+        #{examShortName}, '%')
+      </if>
+      <if test="examDate != null ">and exam_date = #{examDate}
+      </if>
+      <if test="examTypeCode != null  and examTypeCode != ''">and exam_type_code = #{examTypeCode}
+      </if>
+      <if test="examModeCode != null  and examModeCode != ''">and exam_mode_code = #{examModeCode}
+      </if>
+      <if test="gradeCode != null  and gradeCode != ''">and grade_code = #{gradeCode}
+      </if>
+      <if test="schoolYearName != null  and schoolYearName != ''">and school_year_name like
+        concat('%',
+        #{schoolYearName}, '%')
+      </if>
+      <if test="graduateCode != null  and graduateCode != ''">and graduate_code = #{graduateCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+  <!-- 插入dataTypeFeild配置进考试 -->
+  <insert id="insertDataFieldToExam" parameterType="CltExamInfo">
+    INSERT INTO clt_exam_data_field(exam_id,exam_data_type_code,field_name,data_field_name,default_name,is_extend,is_need,base_type_Code,order_num,remark,STATUS,create_by,create_time)
+    SELECT #{examId} exam_id,data_type_code,field_name,data_field_name,default_name,is_extend,is_need,base_type_Code,order_num,remark,status,create_by,create_time from clt_data_field where status=0
+  </insert>
+  <insert id="copyExamDeptToProject">
+    insert into aly_dept(project_id,parent_all_code,dept_name,dept_code,
+        dept_type_code,dept_come,create_time)
+    select #{projectId} project_id,parent_all_code,dept_name,dept_code,
+    dept_type_code,0 dept_come,now() create_time  from sys_dept
+    where dept_code in(select dept_all_code from clt_exam_info where exam_id=#{examId})
+  </insert>
+  <update id="cleanExamData">
+
+    call proc_cleanExamData(#{examIds});
+  </update>
+  <update id="updateDeptAllCodeById">
+    UPDATE `clt_exam_info` SET dept_all_code=#{deptAllCode} WHERE exam_id=#{examId};
+  </update>
+
+</mapper>

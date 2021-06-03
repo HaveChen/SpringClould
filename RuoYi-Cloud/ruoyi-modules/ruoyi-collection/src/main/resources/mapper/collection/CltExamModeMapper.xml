@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltExamModeMapper">
+  <resultMap type="CltExamMode" id="CltExamModeResult">
+    <result property="examModeId" column="exam_mode_id"/>
+    <result property="examModeName" column="exam_mode_name"/>
+    <result property="examModeCode" column="exam_mode_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltExamModeVo">
+        select exam_mode_id, exam_mode_name, exam_mode_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from clt_exam_mode
+    </sql>
+
+  <select id="selectCltExamModeList" parameterType="CltExamMode" resultMap="CltExamModeResult">
+    <include refid="selectCltExamModeVo"/>
+    <where>
+      <if test="examModeName != null  and examModeName != ''">and exam_mode_name like concat('%',
+        #{examModeName}, '%')
+      </if>
+      <if test="examModeCode != null  and examModeCode != ''">and exam_mode_code like concat('%',
+        #{examModeCode}, '%')
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

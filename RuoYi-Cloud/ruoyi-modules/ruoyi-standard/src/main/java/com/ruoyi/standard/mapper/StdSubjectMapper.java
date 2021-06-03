@@ -2,7 +2,7 @@ package com.ruoyi.standard.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ruoyi.standard.domain.StdSubject;
+import com.ruoyi.standard.api.domain.StdSubject;
 import java.util.List;
 
 /**

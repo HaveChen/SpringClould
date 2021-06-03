@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltCourseMapper">
+  <resultMap type="CltCourse" id="CltCourseResult">
+    <result property="courseId" column="course_id"/>
+    <result property="examId" column="exam_id"/>
+    <result property="courseName" column="course_name"/>
+    <result property="courseCode" column="course_code"/>
+    <result property="teacherCode" column="teacher_code"/>
+    <result property="subjectCode" column="subject_code"/>
+    <result property="teachClassCode" column="teach_class_code"/>
+    <result property="deptCode" column="dept_code"/>
+    <result property="deptId" column="dept_id"/>
+    <result property="graduateCode" column="graduate_code"/>
+    <result property="schoolYearCode" column="school_year_code"/>
+    <result property="gradeCode" column="grade_code"/>
+    <result property="extensions" column="extensions"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltCourseVo">
+        select course_id, exam_id, course_name, course_code,
+        teacher_code, subject_code, teach_class_code, dept_code,
+         dept_id, graduate_code, school_year_code, grade_code,extensions,
+          order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from clt_course
+    </sql>
+
+  <select id="selectCltCourseList" parameterType="CltCourse" resultMap="CltCourseResult">
+    <include refid="selectCltCourseVo"/>
+    <where>
+      <if test="examId != null ">and exam_id = #{examId}
+      </if>
+      <if test="courseName != null  and courseName != ''">and course_name like concat('%',
+        #{courseName}, '%')
+      </if>
+      <if test="courseCode != null  and courseCode != ''">and course_code like concat('%',
+        #{courseCode}, '%')
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

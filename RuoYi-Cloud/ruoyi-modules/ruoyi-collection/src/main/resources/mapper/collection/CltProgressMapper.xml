@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltProgressMapper">
+  <resultMap type="CltProgress" id="CltProgressResult">
+    <result property="progressId" column="progress_id"/>
+    <result property="examId" column="exam_id"/>
+    <result property="fileName" column="file_name"/>
+    <result property="filePath" column="file_path"/>
+    <result property="fileType" column="file_type"/>
+    <result property="importType" column="import_type"/>
+    <result property="fieldMapping" column="field_mapping"/>
+    <result property="allField" column="all_field"/>
+    <result property="subjectCode" column="subject_code"/>
+    <result property="sumLine" column="sum_line"/>
+    <result property="sucessLine" column="sucess_line"/>
+    <result property="errorLine" column="error_line"/>
+    <result property="importStatus" column="import_status"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltProgressVo">
+        select progress_id, exam_id, file_path,file_type,
+        file_name, import_type, field_mapping,all_field, subject_code,sum_line,
+        sucess_line, error_line, import_status, order_num,
+        remark, status, del_flag, create_by, create_time,
+        update_by, update_time from clt_progress
+    </sql>
+
+  <select id="selectCltProgressList" parameterType="CltProgress" resultMap="CltProgressResult">
+    <include refid="selectCltProgressVo"/>
+    <where>
+      <if test="examId != null ">and exam_id = #{examId}
+      </if>
+      <if test="importType != null  and importType != ''">and import_type = #{importType}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+  <update id="updateImportStatus">
+    update clt_progress set import_status=${importType} where progress_id=${progressId};
+  </update>
+
+
+</mapper>

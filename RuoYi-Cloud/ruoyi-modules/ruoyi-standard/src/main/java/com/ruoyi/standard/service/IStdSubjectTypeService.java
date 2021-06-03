@@ -1,7 +1,8 @@
 package com.ruoyi.standard.service;
 
+
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ruoyi.standard.domain.StdSubjectType;
+import com.ruoyi.standard.api.domain.StdSubjectType;
 import java.util.List;
 
 /**

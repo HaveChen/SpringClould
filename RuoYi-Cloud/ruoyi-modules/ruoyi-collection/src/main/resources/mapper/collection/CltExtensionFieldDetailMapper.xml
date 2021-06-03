@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltExtensionFieldDetailMapper">
+  <resultMap type="CltExtensionFieldDetail" id="CltExtensionFieldDetailResult">
+    <result property="extensionDetailId" column="extension_detail_id"/>
+    <result property="extensionId" column="extension_id"/>
+    <result property="examId" column="exam_id"/>
+    <result property="subjectCode" column="subject_code"/>
+    <result property="extensionDetaiName" column="extension_detai_name"/>
+    <result property="extensionDetaiCode" column="extension_detai_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltExtensionFieldDetailVo">
+        select extension_detail_id, extension_id, exam_id, subject_code, extension_detai_name, extension_detai_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from clt_extension_field_detail
+    </sql>
+
+  <select id="selectCltExtensionFieldDetailList" parameterType="CltExtensionFieldDetail"
+    resultMap="CltExtensionFieldDetailResult">
+    <include refid="selectCltExtensionFieldDetailVo"/>
+    <where>
+      <if test="extensionId != null ">and extension_id = #{extensionId}
+      </if>
+      <if test="examId != null ">and exam_id = #{examId}
+      </if>
+      <if test="subjectCode != null  and subjectCode != ''">and subject_code = #{subjectCode}
+      </if>
+      <if test="extensionDetaiName != null  and extensionDetaiName != ''">and extension_detai_name
+        like concat('%',
+        #{extensionDetaiName}, '%')
+      </if>
+      <if test="extensionDetaiCode != null  and extensionDetaiCode != ''">and extension_detai_code
+        like concat('%',
+        #{extensionDetaiCode}, '%')
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

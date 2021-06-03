@@ -76,7 +76,10 @@
       <groupId>com.ruoyi</groupId>
       <artifactId>ruoyi-common-swagger</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>com.ruoyi</groupId>
+      <artifactId>ruoyi-api-standard</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

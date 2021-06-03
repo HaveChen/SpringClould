@@ -1,9 +1,12 @@
 # Tomcat
 server:
-  port: 9201
+  port: 9400
 
 # Spring
 spring:
+  batch:
+    job:
+      enabled: false
   application:
     # 应用名称
     name: ruoyi-collection

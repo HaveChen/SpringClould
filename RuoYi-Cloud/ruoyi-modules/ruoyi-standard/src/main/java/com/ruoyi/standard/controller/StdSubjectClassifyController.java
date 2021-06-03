@@ -8,7 +8,7 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.PreAuthorize;
-import com.ruoyi.standard.domain.StdSubjectClassify;
+import com.ruoyi.standard.api.domain.StdSubjectClassify;
 import com.ruoyi.standard.service.IStdSubjectClassifyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

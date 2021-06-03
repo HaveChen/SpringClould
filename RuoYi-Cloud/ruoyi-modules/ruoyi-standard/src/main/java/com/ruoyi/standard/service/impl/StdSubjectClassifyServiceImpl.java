@@ -1,7 +1,7 @@
 package com.ruoyi.standard.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ruoyi.standard.domain.StdSubjectClassify;
+import com.ruoyi.standard.api.domain.StdSubjectClassify;
 import com.ruoyi.standard.mapper.StdSubjectClassifyMapper;
 import com.ruoyi.standard.service.IStdSubjectClassifyService;
 import java.util.List;

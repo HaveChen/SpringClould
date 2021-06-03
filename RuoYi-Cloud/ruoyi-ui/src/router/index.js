@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-Vue.use(Router)
-
 /* Layout */
 import Layout from '@/layout'
-import ParentView from '@/components/ParentView';
+
+Vue.use(Router)
 
 /**
  * Note: 路由配置项
@@ -62,7 +60,7 @@ export const constantRoutes = [
         path: 'index',
         component: (resolve) => require(['@/views/index'], resolve),
         name: '首页',
-        meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true }
+        meta: {title: '首页', icon: 'dashboard', noCache: true, affix: true}
       }
     ]
   },
@@ -74,9 +72,10 @@ export const constantRoutes = [
     children: [
       {
         path: 'profile',
-        component: (resolve) => require(['@/views/system/user/profile/index'], resolve),
+        component: (resolve) => require(['@/views/system/user/profile/index'],
+          resolve),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: {title: '个人中心', icon: 'user'}
       }
     ]
   },
@@ -89,7 +88,7 @@ export const constantRoutes = [
         path: 'type/data/:dictId(\\d+)',
         component: (resolve) => require(['@/views/system/dict/data'], resolve),
         name: 'Data',
-        meta: { title: '字典数据', icon: '' }
+        meta: {title: '字典数据', icon: ''}
       }
     ]
   },
@@ -102,7 +101,7 @@ export const constantRoutes = [
         path: 'log',
         component: (resolve) => require(['@/views/monitor/job/log'], resolve),
         name: 'JobLog',
-        meta: { title: '调度日志' }
+        meta: {title: '调度日志'}
       }
     ]
   },
@@ -113,16 +112,80 @@ export const constantRoutes = [
     children: [
       {
         path: 'edit/:tableId(\\d+)',
-        component: (resolve) => require(['@/views/tool/gen/editTable'], resolve),
+        component: (resolve) => require(['@/views/tool/gen/editTable'],
+          resolve),
         name: 'GenEdit',
-        meta: { title: '修改生成配置' }
+        meta: {title: '修改生成配置'}
       }
+    ]
+  },
+  {
+    path: '/collection',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'fileld/cltData/:key',
+        component: (resolve) => require(['@/views/collection/cltDataField'],
+          resolve),
+        name: 'cltDataType',
+        meta: {title: '数据采集明细', icon: ''}
+      },
+      {
+        path: 'exam/cltDatafieldToExam/:key',
+        component: (resolve) => require(
+          ['@/views/collection/cltDatafieldToExam'], resolve),
+        name: 'cltDatafieldToExam',
+        meta: {title: '采集字段', icon: ''}
+      },
+      {
+        path: 'result/cltProgress/:key',
+        component: (resolve) => require(['@/views/collection/cltProgress'],
+          resolve),
+        name: 'student',
+        meta: {title: '数据采集', icon: ''}
+      },
+      {
+        path: 'exam/cltStudentDetail/:key',
+        component: (resolve) => require(['@/views/collection/cltStudentDetail'],
+          resolve),
+        name: 'CltStudentDetail',
+        meta: {title: '报名库查看', icon: ''}
+      },
+      {
+        path: 'exam/cltTestpaper/:key',
+        component: (resolve) => require(['@/views/collection/cltTestpaper'],
+          resolve),
+        name: 'CltTestpaper',
+        meta: {title: '试卷查看', icon: ''}
+      },
+      {
+        path: 'exam/cjDetail/:key',
+        component: (resolve) => require(['@/views/collection/cjDetail'],
+          resolve),
+        name: 'CjDetail',
+        meta: {title: '成绩查看', icon: ''}
+      },
+      {
+        path: 'exam/cjDetail/:key/:testId',
+        component: (resolve) => require(['@/views/collection/cjDetail'],
+          resolve),
+        name: 'CjDetail',
+        meta: {title: '成绩查看', icon: ''}
+      },
+      {
+        path: 'exam/cltItemDetail/:key/:testId',
+        component: (resolve) => require(['@/views/collection/cltItemDetail'],
+          resolve),
+        name: 'CltItemDetail',
+        meta: {title: '细目表查看', icon: ''}
+      },
     ]
   }
 ]
 
 export default new Router({
   mode: 'history', // 去掉url中的#
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })

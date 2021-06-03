@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltCjDetailMapper">
+  <resultMap type="CltCjDetail" id="CltCjDetailResult">
+    <result property="cjId" column="cj_id"/>
+    <result property="examId" column="exam_id"/>
+    <result property="testpaperId" column="testpaper_id"/>
+    <result property="subjectCode" column="subject_code"/>
+    <result property="studentZkzh" column="student_zkzh"/>
+    <result property="classCode" column="class_code"/>
+    <result property="deptCode" column="dept_code"/>
+    <result property="parentAllCode" column="parent_all_code"/>
+    <result property="cjSign" column="cj_sign"/>
+    <result property="totalScore" column="total_score"/>
+    <result property="kgScore" column="kg_score"/>
+    <result property="zgScore" column="zg_score"/>
+    <result property="omrStr" column="omr_str"/>
+    <result property="scoreStr" column="score_str"/>
+    <result property="extensions" column="extensions"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltCjDetailVo">
+        select cj_id, exam_id, testpaper_id, subject_code, student_zkzh, class_code, dept_code, parent_all_code, cj_sign, total_score, kg_score, zg_score,omr_str,score_str, extensions, status, del_flag, create_by, create_time, update_by, update_time,order_num,remark from clt_cj_detail
+    </sql>
+  <select id="selectCltCjDetailList" parameterType="CltCjDetail" resultMap="CltCjDetailResult">
+    <include refid="selectCltCjDetailVo"/>
+    <where>
+      <if test="examId != null ">and exam_id = #{examId}
+      </if>
+      <if test="testpaperId != null ">and testpaper_id = #{testpaperId}
+      </if>
+      <if test="studentZkzh != null  and studentZkzh != ''">and student_zkzh = #{studentZkzh}
+      </if>
+      <if test="classCode != null  and classCode != ''">and class_code = #{classCode}
+      </if>
+      <if test="deptCode != null  and deptCode != ''">and dept_code = #{deptCode}
+      </if>
+      <if test="cjSign != null  and cjSign != ''">and cj_sign = #{cjSign}
+      </if>
+
+    </where>
+    order by student_zkzh
+  </select>
+  <delete id="deleteCjByexamId">
+      DELETE FROM `clt_cj_detail` where exam_id=${examId};
+  </delete>
+
+
+</mapper>

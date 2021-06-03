@@ -1,7 +1,8 @@
 package com.ruoyi.standard.mapper;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ruoyi.standard.domain.StdSubjectClassify;
+import com.ruoyi.standard.api.domain.StdSubjectClassify;
 import java.util.List;
 
 /**

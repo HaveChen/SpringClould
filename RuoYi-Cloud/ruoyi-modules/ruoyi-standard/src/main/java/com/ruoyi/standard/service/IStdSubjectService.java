@@ -2,7 +2,7 @@ package com.ruoyi.standard.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ruoyi.standard.domain.StdSubject;
+import com.ruoyi.standard.api.domain.StdSubject;
 import java.util.List;
 
 /**

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltProgressDetailMapper">
+  <resultMap type="CltProgressDetail" id="CltProgressDetailResult">
+    <result property="progressDetailId" column="progress_detail_id"/>
+    <result property="progressId" column="progress_id"/>
+    <result property="examId" column="exam_id"/>
+    <result property="line" column="line"/>
+    <result property="errorMessage" column="error_message"/>
+    <result property="errorTypeCode" column="error_type_code"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltProgressDetailVo">
+        select progress_detail_id, progress_id, exam_id, line, error_message, error_type_code, order_num, remark, status, del_flag, create_by, create_time, update_by, update_time from clt_progress_detail
+    </sql>
+
+  <select id="selectCltProgressDetailList" parameterType="CltProgressDetail"
+    resultMap="CltProgressDetailResult">
+    <include refid="selectCltProgressDetailVo"/>
+    <where>
+      <if test="progressId != null ">and progress_id = #{progressId}
+      </if>
+      <if test="examId != null ">and exam_id = #{examId}
+      </if>
+      <if test="errorTypeCode != null  and errorTypeCode != ''">and error_type_code =
+        #{errorTypeCode}
+      </if>
+    </where>
+    order by order_num
+  </select>
+
+
+</mapper>

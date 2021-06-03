@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.collection.mapper.CltStudentDetailMapper">
+  <resultMap type="CltStudentDetail" id="CltStudentDetailResult">
+    <result property="studentId" column="student_id"/>
+    <result property="examId" column="exam_id"/>
+    <result property="studentName" column="student_name"/>
+    <result property="studentNum" column="student_num"/>
+    <result property="studentZkzh" column="student_zkzh"/>
+    <result property="studentSignCode" column="student_sign_code"/>
+    <result property="studentCombineCode" column="student_combine_code"/>
+    <result property="foreignSubjectCode" column="foreign_subject_code"/>
+    <result property="subjects" column="subjects"/>
+    <result property="classCode" column="class_code"/>
+    <result property="schoolCode" column="school_code"/>
+    <result property="parentsCode" column="parents_code"/>
+    <result property="extensions" column="extensions"/>
+    <result property="courseCodes" column="course_codes"/>
+    <result property="orderNum" column="order_num"/>
+    <result property="remark" column="remark"/>
+    <result property="status" column="status"/>
+    <result property="delFlag" column="del_flag"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+  </resultMap>
+
+  <sql id="selectCltStudentDetailVo">
+        select student_id, exam_id, student_name, student_num,
+          student_zkzh, student_sign_code, student_combine_code,
+          foreign_subject_code, subjects, class_code, school_code,
+          parents_code, extensions,course_codes, order_num, remark, status,
+          del_flag, create_by, create_time, update_by, update_time
+        from clt_student_detail
+  </sql>
+  <select id="selectCltStudentDetailList" parameterType="CltStudentDetail"
+    resultMap="CltStudentDetailResult">
+    <include refid="selectCltStudentDetailVo"/>
+    <where>
+      <if test="examId != null  and examId != ''">and exam_id = #{examId}
+      </if>
+      <if test="studentName != null  and studentName != ''">and student_name like concat('%',
+        #{studentName}, '%')
+      </if>
+      <if test="studentNum != null  and studentNum != ''">and student_num = #{studentNum}
+      </if>
+      <if test="studentZkzh != null  and studentZkzh != ''">and student_zkzh = #{studentZkzh}
+      </if>
+      <if test="classCode != null  and classCode != ''">and class_code = #{classCode}
+      </if>
+      <if test="schoolCode != null  and schoolCode != ''">and school_code = #{schoolCode}
+      </if>
+    </where>
+    order by order_num,student_num
+  </select>
+<!--  <select id="loadStudentInfo"-->
+<!--    resultType="com.ruoyi.common.core.domain.entity.analysis.AlyStudentInfo">-->
+<!--    SELECT stu.student_num,stu.student_combine_code,cj.subject_code ,-->
+<!--    cj.total_score,cj.cj_sign,stu.`course_codes`,stu.`school_code`,-->
+<!--    stu.`class_code` admin_class_code-->
+<!--    FROM clt_student_detail stu-->
+<!--    LEFT JOIN clt_cj_detail cj ON cj.exam_id=stu.`exam_id` AND stu.student_zkzh=cj.student_zkzh-->
+<!--    WHERE stu.exam_id=#{examId}-->
+<!--    <if-->
+<!--      test="subjectCombineCode != '0' and subjectCombineCode != null and subjectCombineCode != ''">-->
+<!--      AND stu.`student_combine_code`=#{subjectCombineCode}-->
+<!--    </if>-->
+<!--    AND cj.subject_code=#{subjectCode} and cj.total_score>0-->
+<!--  </select>-->
+  <select id="getImportCodes" resultType="java.lang.String">
+    SELECT GROUP_CONCAT(a.school_code) codes FROM
+    (SELECT school_code FROM `clt_student_detail` WHERE exam_id=#{examId} GROUP BY school_code)a
+  </select>
+
+  <delete id="deleteStudentByExamId">
+    DELETE FROM `clt_student_detail` where exam_id=${examId};
+  </delete>
+</mapper>
