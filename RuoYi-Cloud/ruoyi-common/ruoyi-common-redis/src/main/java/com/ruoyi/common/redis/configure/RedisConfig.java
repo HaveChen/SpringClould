@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -21,6 +22,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
+
+  //缓存出现异常时处理，一般忽略报错，不能因为redis导致业务失败
+  //如果缓存写发生了异常，就可能导致mysql的数据和redis缓存的数据不一致的问题
+  //CacheErrorHandler的handleCachePutError和handleCacheEvictError 把这些key删除
+  //或者通过canal处理缓存不一致的情况
+  @Override
+  public CacheErrorHandler errorHandler() {
+    return new IgnoreExceptionCacheErrorHandler();
+  }
 
   @Bean
   @SuppressWarnings(value = { "unchecked", "rawtypes" })

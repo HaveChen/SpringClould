@@ -1,12 +1,22 @@
 #mysql5.7.34安装
-1：新建data，logs，conf目录，映射docker文件
+mkdir /usr/software/mysql5.7.34/conf -p
+mkdir /usr/software/mysql5.7.34/data -p
+mkdir /usr/software/mysql5.7.34/logs -p
+
+#进入conf目录 创建mysqld.cnf配置文件
+vi mysqld.cnf
 
 #创建数据的container
-docker run -d -p 3306:3306 -v /usr/software/mysql5.7.34/conf/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /usr/software/mysql5.7/data:/var/lib/mysql -v /usr/software/mysql5.7/logs:/var/log/mysql -e MYSQL_ROOT_PASSWORD=password   --name mysql5.7 mysql:5.7.34
+docker run -d -p 3306:3306 -v /usr/software/mysql5.7.34/conf/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /usr/software/mysql5.7.34/data:/var/lib/mysql -v /usr/software/mysql5.7.34/logs:/var/log/mysql -e MYSQL_ROOT_PASSWORD=password   --name mysql5.7 mysql:5.7.34
+docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password   --name mysql5.7 mysql:5.7.34 --restart=always
+
+
 
 
 #创建nacos
-docker run --name nacos -d -p 8848:8848 -v /usr/software/nacos/conf/application.properties:/home/nacos/conf/application.properties -v /usr/software/nacos/logs/:/home/nacos/logs/ nacos/nacos-server:1.4.2
+mkdir /usr/software/nacos1.4.2/conf -p
+mkdir /usr/software/nacos1.4.2/logs -p
+docker run --name nacos -d -p 8848:8848 -v /usr/software/nacos1.4.2/conf/application.properties:/home/nacos/conf/application.properties -v /usr/software/nacos1.4.2/logs/:/home/nacos/logs/ nacos/nacos-server:1.4.2
 
 
 #创建redis

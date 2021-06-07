@@ -1,0 +1,7 @@
+https://www.runoob.com/docker/centos-docker-install.html
+
+
+sudo yum install docker-ce-19.03.15 docker-ce-cli-19.03.15 containerd.io
+
+设置docker自启动
+systemctl enable docker
