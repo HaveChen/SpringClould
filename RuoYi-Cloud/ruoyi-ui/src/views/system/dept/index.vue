@@ -57,17 +57,17 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button 
-            size="mini" 
-            type="text" 
-            icon="el-icon-edit" 
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:dept:edit']"
           >修改</el-button>
-          <el-button 
-            size="mini" 
-            type="text" 
-            icon="el-icon-plus" 
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-plus"
             @click="handleAdd(scope.row)"
             v-hasPermi="['system:dept:add']"
           >新增</el-button>
@@ -178,7 +178,7 @@ export default {
           { required: true, message: "部门名称不能为空", trigger: "blur" }
         ],
         orderNum: [
-          { required: true, message: "菜单顺序不能为空", trigger: "blur" }
+          { required: true, message: "显示排序不能为空", trigger: "blur" }
         ],
         email: [
           {
@@ -310,7 +310,7 @@ export default {
         }).then(() => {
           this.getList();
           this.msgSuccess("删除成功");
-        })
+      }).catch(() => {});
     }
   }
 };

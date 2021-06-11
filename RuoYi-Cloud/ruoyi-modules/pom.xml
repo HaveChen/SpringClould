@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.ruoyi</groupId>
     <artifactId>ruoyi</artifactId>
-    <version>2.5.0</version>
+    <version>3.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -17,6 +17,8 @@
     <module>ruoyi-canal</module>
     <module>ruoyi-standard</module>
     <module>ruoyi-collection</module>
+    <module>ruoyi-analysis</module>
+    <module>ruoyi-report</module>
   </modules>
 
   <artifactId>ruoyi-modules</artifactId>

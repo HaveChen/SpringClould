@@ -33,6 +33,13 @@
           <span>更新日志</span>
         </div>
         <el-collapse accordion>
+          <el-collapse-item title="v3.0.0 - 2021-06-11">
+            <ol>
+              <li>升级版本到3.0.0</li>
+              <li>同步线上6.10版本</li>
+              <li>添加项目docker支持</li>
+            </ol>
+          </el-collapse-item>
           <el-collapse-item title="v2.5.6 - 2021-06-01">
             <ol>
               <li>新增多租户管理功能（操作待完善）</li>

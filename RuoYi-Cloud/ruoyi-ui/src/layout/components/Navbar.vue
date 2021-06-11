@@ -96,7 +96,7 @@
         }).then(() => {
           this.$store.dispatch('LogOut').then(() => {
             location.href = '/index';
-          })
+          }).catch(() => {});
         })
       }
     }

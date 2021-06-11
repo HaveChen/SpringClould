@@ -6,7 +6,6 @@ import com.ruoyi.collection.domain.CltProgress;
 import com.ruoyi.collection.domain.CltProgressDetail;
 import com.ruoyi.collection.service.ICltProgressDetailService;
 import com.ruoyi.common.core.exception.BaseException;
-import com.ruoyi.common.core.utils.MapDataUtils;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,10 +107,10 @@ public class ExcelItemReader extends FlatFileItemReader {
   }
 
   private void initMappingFeild() {
-    String fields = cltProgress.getFieldMapping();
-    columnMap = MapDataUtils.stringToMap(fields);
-    String allFields = cltProgress.getAllField();
-    allColumnMap = MapDataUtils.stringToMap(allFields);
+//    String fields = cltProgress.getFieldMapping();
+//    columnMap = MapDataUtils.stringToMap(fields);
+//    String allFields = cltProgress.getAllField();
+//    allColumnMap = MapDataUtils.stringToMap(allFields);
   }
 
   /**
