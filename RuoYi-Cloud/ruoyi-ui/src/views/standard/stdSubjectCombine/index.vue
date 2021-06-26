@@ -4,20 +4,20 @@
              label-width="68px">
       <el-form-item label="名称" prop="subjectCombineName">
         <el-input
-            v-model="queryParams.subjectCombineName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.subjectCombineName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="代码" prop="subjectCombineCode">
         <el-input
-            v-model="queryParams.subjectCombineCode"
-            placeholder="请输入代码"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.subjectCombineCode"
+          placeholder="请输入代码"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
@@ -29,43 +29,43 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['standard:stdSubjectCombine:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['standard:stdSubjectCombine:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['standard:stdSubjectCombine:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['standard:stdSubjectCombine:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['standard:stdSubjectCombine:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['standard:stdSubjectCombine:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['standard:stdSubjectCombine:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['standard:stdSubjectCombine:export']"
         >导出
         </el-button>
       </el-col>
@@ -83,19 +83,19 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['standard:stdSubjectCombine:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['standard:stdSubjectCombine:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['standard:stdSubjectCombine:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['standard:stdSubjectCombine:remove']"
           >删除
           </el-button>
         </template>
@@ -103,11 +103,11 @@
     </el-table>
 
     <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改科目组合类型对话框 -->
@@ -128,9 +128,9 @@
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{dict.dictLabel}}
             </el-radio>
           </el-radio-group>

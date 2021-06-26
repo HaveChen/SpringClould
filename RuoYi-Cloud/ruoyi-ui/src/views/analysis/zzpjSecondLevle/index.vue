@@ -4,30 +4,30 @@
              label-width="68px">
       <el-form-item label="一级维度" prop="alyFirstLevelId">
         <el-input
-            v-model="queryParams.alyFirstLevelId"
-            placeholder="请输入关联一级维度"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.alyFirstLevelId"
+          placeholder="请输入关联一级维度"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       </el-form-item>
       <el-form-item label="分析项目" prop="alyProjectId">
         <el-input
-            v-model="queryParams.alyProjectId"
-            placeholder="请输入分析项目"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.alyProjectId"
+          placeholder="请输入分析项目"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="分析代码" prop="alyCode">
         <el-input
-            v-model="queryParams.alyCode"
-            placeholder="请输入分析代码"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.alyCode"
+          placeholder="请输入分析代码"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="分析类型" prop="alyType">
@@ -37,11 +37,11 @@
       </el-form-item>
       <el-form-item label="分析状态" prop="state">
         <el-input
-            v-model="queryParams.state"
-            placeholder="请输入分析状态"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.state"
+          placeholder="请输入分析状态"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
@@ -53,43 +53,43 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['analysis:zzpjSecondLevle:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['analysis:zzpjSecondLevle:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['analysis:zzpjSecondLevle:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['analysis:zzpjSecondLevle:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['analysis:zzpjSecondLevle:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['analysis:zzpjSecondLevle:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['analysis:zzpjSecondLevle:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['analysis:zzpjSecondLevle:export']"
         >导出
         </el-button>
       </el-col>
@@ -112,19 +112,19 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['analysis:zzpjSecondLevle:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['analysis:zzpjSecondLevle:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['analysis:zzpjSecondLevle:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['analysis:zzpjSecondLevle:remove']"
           >删除
           </el-button>
         </template>
@@ -132,11 +132,11 @@
     </el-table>
 
     <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改二级分析层级 对话框 -->
@@ -183,9 +183,9 @@
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{dict.dictLabel}}
             </el-radio>
           </el-radio-group>
@@ -379,7 +379,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return delZzpjSecondLevle(alySecondLevelIds)
         }).then(() => {
           this.getList()
@@ -393,7 +393,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return exportZzpjSecondLevle(queryParams)
         }).then(response => {
           this.download(response.msg)

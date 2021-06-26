@@ -1,67 +1,67 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="名称" prop="projectName">
         <el-input
-            v-model="queryParams.projectName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.projectName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="届别" prop="graduateCode">
         <el-select v-model="queryParams.graduateCode" placeholder="请选择界别">
           <el-option
-              v-for="item in GraduateList"
-              :key="item.graduateCode"
-              :label="item.graduateName"
-              :value="item.graduateCode"
-              :disabled="item.status == 1"
+            v-for="item in GraduateList"
+            :key="item.graduateCode"
+            :label="item.graduateName"
+            :value="item.graduateCode"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="入口名称" prop="entranceName">
         <el-input
-            v-model="queryParams.entranceName"
-            placeholder="请输入入口名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.entranceName"
+          placeholder="请输入入口名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="出口名称" prop="exitName">
         <el-input
-            v-model="queryParams.exitName"
-            placeholder="请输入出口名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.exitName"
+          placeholder="请输入出口名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="分析状态" prop="alyState">
         <el-select v-model="queryParams.alyState" placeholder="请选择分析状态">
           <el-option
-              v-for="item in analysisData"
-              :key="item.dictCode"
-              :label="item.dictLabel"
-              :value="item.dictValue"
-              :disabled="item.status == 1"
+            v-for="item in analysisData"
+            :key="item.dictCode"
+            :label="item.dictLabel"
+            :value="item.dictValue"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button
         >
@@ -75,134 +75,134 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['analysis:alyProject:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['analysis:alyProject:add']"
         >新增
         </el-button
         >
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['analysis:alyProject:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['analysis:alyProject:edit']"
         >修改
         </el-button
         >
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['analysis:alyProject:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['analysis:alyProject:remove']"
         >删除
         </el-button
         >
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="info"
-            icon="el-icon-info"
-            size="mini"
-            :disabled="multiple"
-            @click="prAnalysis"
-            v-hasPermi="['analysis:alyProject:remove']"
+          type="info"
+          icon="el-icon-info"
+          size="mini"
+          :disabled="multiple"
+          @click="prAnalysis"
+          v-hasPermi="['analysis:alyProject:remove']"
         >分析
         </el-button
         >
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['analysis:alyProject:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['analysis:alyProject:export']"
         >导出
         </el-button
         >
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="alyProjectList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="alyProjectList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          prop="projectId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        prop="projectId"
       />
       <el-table-column label="名称" align="center" prop="projectName"/>
       <el-table-column
-          label="届别"
-          align="center"
-          prop="graduateCode"
-          :formatter="graduateFormat"
+        label="届别"
+        align="center"
+        prop="graduateCode"
+        :formatter="graduateFormat"
       />
       <el-table-column label="入口名称" align="center" prop="entranceName"/>
       <el-table-column label="出口名称" align="center" prop="exitName"/>
       <el-table-column
-          label="分析状态"
-          align="center"
-          prop="alyState"
-          :formatter="analysisFormat"
+        label="分析状态"
+        align="center"
+        prop="alyState"
+        :formatter="analysisFormat"
       />
       <el-table-column label="排序" align="center" prop="orderNum"/>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <div v-if="isProgressShow(scope.row)">
             <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-document-checked"
-                @click="prAnalysis(scope.row)"
-                v-hasPermi="['analysis:alyProject:edit']"
+              size="mini"
+              type="text"
+              icon="el-icon-document-checked"
+              @click="prAnalysis(scope.row)"
+              v-hasPermi="['analysis:alyProject:edit']"
             >分析
             </el-button
             >
             <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-edit"
-                @click="handleUpdate(scope.row)"
-                v-hasPermi="['analysis:alyProject:edit']"
+              size="mini"
+              type="text"
+              icon="el-icon-edit" plain
+              @click="handleUpdate(scope.row)"
+              v-hasPermi="['analysis:alyProject:edit']"
             >修改
             </el-button
             >
             <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-delete"
-                @click="handleDelete(scope.row)"
-                v-hasPermi="['analysis:alyProject:remove']"
+              size="mini"
+              type="text"
+              icon="el-icon-delete" plain
+              @click="handleDelete(scope.row)"
+              v-hasPermi="['analysis:alyProject:remove']"
             >删除
             </el-button
             >
           </div>
           <div v-else>
             <el-progress
-                :percentage="controllorProgess(scope.row)"
+              :percentage="controllorProgess(scope.row)"
             ></el-progress>
           </div>
         </template>
@@ -210,20 +210,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改分析项目对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
@@ -235,16 +235,16 @@
           <el-col :span="12">
             <el-form-item label="届别" prop="graduateCode">
               <el-select
-                  @change="changeGraduate"
-                  v-model="form.graduateCode"
-                  placeholder="请选择界别"
+                @change="changeGraduate"
+                v-model="form.graduateCode"
+                placeholder="请选择界别"
               >
                 <el-option
-                    v-for="item in GraduateList"
-                    :key="item.graduateCode"
-                    :label="item.graduateName"
-                    :value="item.graduateCode"
-                    :disabled="item.status == 1"
+                  v-for="item in GraduateList"
+                  :key="item.graduateCode"
+                  :label="item.graduateName"
+                  :value="item.graduateCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -254,9 +254,9 @@
           <el-col>
             <el-form-item label="入口名称" prop="entranceName">
               <el-input
-                  style="width: 250px"
-                  v-model="form.entranceName"
-                  placeholder="请输入入口名称"
+                style="width: 250px"
+                v-model="form.entranceName"
+                placeholder="请输入入口名称"
               />
             </el-form-item>
           </el-col>
@@ -266,24 +266,24 @@
             <!-- rkExamJson的格式：json数组,例如
          [{"examId": 50,"weight": "0.5" },{"examId": 2,"weight": "0.5" }]-->
             <el-form-item
-                style="margin-bottom: 0px"
-                label="入口考试"
-                prop="rkExamJson"
+              style="margin-bottom: 0px"
+              label="入口考试"
+              prop="rkExamJson"
             >
               <el-select
-                  v-model="rkExamId"
-                  multiple
-                  collapse-tags
-                  :clearable="true"
-                  placeholder="请选择入口考试"
-                  @change="chooseRkExam"
-                  style="width: 250px"
+                v-model="rkExamId"
+                multiple
+                collapse-tags
+                :clearable="true"
+                placeholder="请选择入口考试"
+                @change="chooseRkExam"
+                style="width: 250px"
               >
                 <el-option
-                    v-for="item in examDataList"
-                    :key="item.examId"
-                    :label="item.examName"
-                    :value="item.examId"
+                  v-for="item in examDataList"
+                  :key="item.examId"
+                  :label="item.examName"
+                  :value="item.examId"
                 >
                 </el-option>
               </el-select>
@@ -294,20 +294,20 @@
           <div class="rukouWeight">
             <div class="weightItem" v-for="(item, index) in lists" :key="index">
               <input
-                  class="weightName"
-                  type="text"
-                  v-model="item.name"
-                  disabled
+                class="weightName"
+                type="text"
+                v-model="item.name"
+                disabled
               />
               <input
-                  v-model="item.value"
-                  class="weightVal"
-                  type="text"
-                  placeholder="请输入权重值"
+                v-model="item.value"
+                class="weightVal"
+                type="text"
+                placeholder="请输入权重值"
               />
               <span
-                  class="el-icon-delete delExamItem"
-                  @click="removeRkExamItem(item.eId)"
+                class="el-icon-delete delExamItem"
+                @click="removeRkExamItem(item.eId)"
               ></span>
             </div>
             <div class="weightTips">
@@ -325,9 +325,9 @@
           <el-col>
             <el-form-item label="出口名称" prop="exitName">
               <el-input
-                  style="width: 250px"
-                  v-model="form.exitName"
-                  placeholder="请输入出口名称"
+                style="width: 250px"
+                v-model="form.exitName"
+                placeholder="请输入出口名称"
               />
             </el-form-item>
           </el-col>
@@ -337,24 +337,24 @@
             <!-- ckExamJson的格式：json数组,例如
         [{"examId": 50,"weight": "0.5" },{"examId": 2,"weight": "0.5" }]-->
             <el-form-item
-                style="margin-bottom: 0px"
-                label="出口考试"
-                prop="ckExamJson"
+              style="margin-bottom: 0px"
+              label="出口考试"
+              prop="ckExamJson"
             >
               <el-select
-                  v-model="ckExamId"
-                  multiple
-                  collapse-tags
-                  :clearable="true"
-                  @change="chooseCkExam"
-                  style="width: 250px"
-                  placeholder="请选择出口考试"
+                v-model="ckExamId"
+                multiple
+                collapse-tags
+                :clearable="true"
+                @change="chooseCkExam"
+                style="width: 250px"
+                placeholder="请选择出口考试"
               >
                 <el-option
-                    v-for="item in examDataList"
-                    :key="item.examId"
-                    :label="item.examName"
-                    :value="item.examId"
+                  v-for="item in examDataList"
+                  :key="item.examId"
+                  :label="item.examName"
+                  :value="item.examId"
                 >
                 </el-option>
               </el-select>
@@ -364,25 +364,25 @@
         <el-row>
           <div class="rukouWeight">
             <div
-                class="weightItem"
-                v-for="(item, index) in cklists"
-                :key="index"
+              class="weightItem"
+              v-for="(item, index) in cklists"
+              :key="index"
             >
               <input
-                  class="weightName"
-                  type="text"
-                  v-model="item.name"
-                  disabled
+                class="weightName"
+                type="text"
+                v-model="item.name"
+                disabled
               />
               <input
-                  v-model="item.value"
-                  class="weightVal"
-                  type="text"
-                  placeholder="请输入权重值"
+                v-model="item.value"
+                class="weightVal"
+                type="text"
+                placeholder="请输入权重值"
               />
               <span
-                  class="el-icon-delete delExamItem"
-                  @click="removeCkExamItem(item.eId)"
+                class="el-icon-delete delExamItem"
+                @click="removeCkExamItem(item.eId)"
               ></span>
             </div>
             <div class="weightTips">
@@ -400,19 +400,19 @@
           <el-col>
             <el-form-item label="历次考试" prop="eachExamIds">
               <el-select
-                  style="width: 250px"
-                  multiple
-                  collapse-tags
-                  :clearable="true"
-                  v-model="form.eachExamIds"
-                  placeholder="请选择历次考试"
-                  @change="historyUpdate"
+                style="width: 250px"
+                multiple
+                collapse-tags
+                :clearable="true"
+                v-model="form.eachExamIds"
+                placeholder="请选择历次考试"
+                @change="historyUpdate"
               >
                 <el-option
-                    v-for="item in examDataList"
-                    :key="item.examId"
-                    :label="item.examName"
-                    :value="item.examId"
+                  v-for="item in examDataList"
+                  :key="item.examId"
+                  :label="item.examName"
+                  :value="item.examId"
                 >
                 </el-option>
               </el-select>
@@ -433,9 +433,9 @@
         <el-row>
           <el-form-item label="排序" prop="orderNum">
             <el-input
-                style="width: 250px"
-                v-model="form.orderNum"
-                placeholder="请输入排序"
+              style="width: 250px"
+              v-model="form.orderNum"
+              placeholder="请输入排序"
             />
           </el-form-item>
         </el-row>
@@ -552,25 +552,25 @@
         // 表单校验
         rules: {
           projectName: [
-            { required: true, message: '名称不能为空', trigger: 'blur' }
+            {required: true, message: '名称不能为空', trigger: 'blur'}
           ],
           graduateCode: [
-            { required: true, message: '届别不能为空', trigger: 'blur' }
+            {required: true, message: '届别不能为空', trigger: 'blur'}
           ],
           entranceName: [
-            { required: true, message: '入口名称不能为空', trigger: 'blur' }
+            {required: true, message: '入口名称不能为空', trigger: 'blur'}
           ],
           rkExamJson: [
-            { required: true, validator: validateRkExam, trigger: 'change' }
+            {required: true, validator: validateRkExam, trigger: 'change'}
           ],
           exitName: [
-            { required: true, message: '出口名称不能为空', trigger: 'blur' }
+            {required: true, message: '出口名称不能为空', trigger: 'blur'}
           ],
           ckExamJson: [
-            { required: true, validator: validateckExam, trigger: 'change' }
+            {required: true, validator: validateckExam, trigger: 'change'}
           ],
           orderNum: [
-            { required: true, message: '排序不能为空', trigger: 'blur' }
+            {required: true, message: '排序不能为空', trigger: 'blur'}
           ]
         }
       }
@@ -1205,7 +1205,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return delAlyProject(projectIds)
         }).then(() => {
           this.getList()
@@ -1219,7 +1219,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return exportAlyProject(queryParams)
         }).then(response => {
           this.download(response.msg)

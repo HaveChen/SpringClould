@@ -130,7 +130,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-edit" plain
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:config:edit']"
           >修改
@@ -352,7 +352,8 @@
         }).then(() => {
           this.getList()
           this.msgSuccess('删除成功')
-        }).catch(() => {});
+        }).catch(() => {
+        });
       },
       /** 导出按钮操作 */
       handleExport() {

@@ -1,36 +1,36 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="名称" prop="examName">
         <el-input
-            v-model="queryParams.examName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.examName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="简称" prop="examShortName">
         <el-input
-            v-model="queryParams.examShortName"
-            placeholder="请输入简称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.examShortName"
+          placeholder="请输入简称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
@@ -42,128 +42,128 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['collection:cltExamInfo:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['collection:cltExamInfo:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['collection:cltExamInfo:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['collection:cltExamInfo:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['collection:cltExamInfo:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['collection:cltExamInfo:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['collection:cltExamInfo:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['collection:cltExamInfo:export']"
         >导出
         </el-button>
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="cltExamInfoList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="cltExamInfoList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          prop="examId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        prop="examId"
       />
       <el-table-column label="名称" align="center" prop="examName"/>
       <el-table-column label="简称" align="center" prop="examShortName"/>
       <el-table-column
-          label="考试时间"
-          align="center"
-          prop="examDate"
-          width="180"
+        label="考试时间"
+        align="center"
+        prop="examDate"
+        width="180"
       >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.examDate, "{y}-{m}-{d}") }}</span>
         </template>
       </el-table-column>
       <el-table-column
-          label="考试类型"
-          align="center"
-          prop="examTypeCode"
-          :formatter="examTypeFormat"
+        label="考试类型"
+        align="center"
+        prop="examTypeCode"
+        :formatter="examTypeFormat"
       />
       <el-table-column
-          label="考试模式"
-          align="center"
-          prop="examModeCode"
-          :formatter="examModeFormat"
+        label="考试模式"
+        align="center"
+        prop="examModeCode"
+        :formatter="examModeFormat"
       />
       <el-table-column
-          label="年级"
-          align="center"
-          prop="gradeCode"
-          :formatter="gradeFormat"
+        label="年级"
+        align="center"
+        prop="gradeCode"
+        :formatter="gradeFormat"
       />
       <el-table-column
-          label="学年"
-          align="center"
-          prop="schoolYear"
-          :formatter="schoolYeaFormat"
+        label="学年"
+        align="center"
+        prop="schoolYear"
+        :formatter="schoolYeaFormat"
       />
       <el-table-column
-          label="届别"
-          align="center"
-          prop="graduateCode"
-          :formatter="graduateFormat"
+        label="届别"
+        align="center"
+        prop="graduateCode"
+        :formatter="graduateFormat"
       />
       <el-table-column
-          label="学期"
-          align="center"
-          prop="termCode"
-          :formatter="termFormat"
+        label="学期"
+        align="center"
+        prop="termCode"
+        :formatter="termFormat"
       />
       <el-table-column
-          label="操作"
-          align="center"
-          min-width="140px"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        min-width="140px"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-dropdown
-              class="el-dropdown-link"
-              @command="handleCommand($event, scope.row)"
+            class="el-dropdown-link"
+            @command="handleCommand($event, scope.row)"
           >
             <el-button
-                icon="el-icon-view"
-                size="mini"
-                type="text"
-                class="el-dropdown-link"
+              icon="el-icon-view"
+              size="mini"
+              type="text"
+              class="el-dropdown-link"
             >
               查看
             </el-button>
@@ -175,19 +175,19 @@
             </el-dropdown-menu>
           </el-dropdown>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['collection:cltExamInfo:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['collection:cltExamInfo:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['collection:cltExamInfo:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['collection:cltExamInfo:remove']"
           >删除
           </el-button>
         </template>
@@ -195,20 +195,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改考试信息对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
@@ -226,10 +226,10 @@
         <el-row>
           <el-form-item label="组织" prop="deptId">
             <treeselect
-                v-model="form.deptId"
-                :options="deptOptions"
-                :show-count="true"
-                placeholder="请选择归属部门"
+              v-model="form.deptId"
+              :options="deptOptions"
+              :show-count="true"
+              placeholder="请选择归属部门"
             />
           </el-form-item>
         </el-row>
@@ -237,13 +237,13 @@
           <el-col :span="12">
             <el-form-item label="考试时间" prop="examDate">
               <el-date-picker
-                  clearable
-                  size="small"
-                  style="width: 100%"
-                  v-model="form.examDate"
-                  type="date"
-                  value-format="yyyy-MM-dd"
-                  placeholder="选择考试时间"
+                clearable
+                size="small"
+                style="width: 100%"
+                v-model="form.examDate"
+                type="date"
+                value-format="yyyy-MM-dd"
+                placeholder="选择考试时间"
               >
               </el-date-picker>
             </el-form-item>
@@ -251,15 +251,15 @@
           <el-col :span="12">
             <el-form-item label="考试类型" prop="examTypeCode">
               <el-select
-                  v-model="form.examTypeCode"
-                  placeholder="请选择考试类型"
+                v-model="form.examTypeCode"
+                placeholder="请选择考试类型"
               >
                 <el-option
-                    v-for="item in examinationType"
-                    :key="item.examTypeCode"
-                    :label="item.examTypeName"
-                    :value="item.examTypeCode"
-                    :disabled="item.status == 1"
+                  v-for="item in examinationType"
+                  :key="item.examTypeCode"
+                  :label="item.examTypeName"
+                  :value="item.examTypeCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -269,15 +269,15 @@
           <el-col :span="12">
             <el-form-item label="考试模式" prop="examModeCode">
               <el-select
-                  v-model="form.examModeCode"
-                  placeholder="请选择考试模式"
+                v-model="form.examModeCode"
+                placeholder="请选择考试模式"
               >
                 <el-option
-                    v-for="item in examinationMode"
-                    :key="item.examModeCode"
-                    :label="item.examModeName"
-                    :value="item.examModeCode"
-                    :disabled="item.status == 1"
+                  v-for="item in examinationMode"
+                  :key="item.examModeCode"
+                  :label="item.examModeName"
+                  :value="item.examModeCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -286,11 +286,11 @@
             <el-form-item label="年级" prop="gradeCode">
               <el-select v-model="form.gradeCode" placeholder="请选择年级">
                 <el-option
-                    v-for="item in gradeList"
-                    :key="item.gradeCode"
-                    :label="item.gradeName"
-                    :value="item.gradeCode"
-                    :disabled="item.status == 1"
+                  v-for="item in gradeList"
+                  :key="item.gradeCode"
+                  :label="item.gradeName"
+                  :value="item.gradeCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -301,11 +301,11 @@
             <el-form-item label="学年" prop="schoolYear">
               <el-select v-model="form.schoolYear" placeholder="请选择学年">
                 <el-option
-                    v-for="item in SchoolYearList"
-                    :key="item.schoolYearCode"
-                    :label="item.schoolYearName"
-                    :value="item.schoolYearCode"
-                    :disabled="item.status == 1"
+                  v-for="item in SchoolYearList"
+                  :key="item.schoolYearCode"
+                  :label="item.schoolYearName"
+                  :value="item.schoolYearCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -314,11 +314,11 @@
             <el-form-item label="界别" prop="graduateCode">
               <el-select v-model="form.graduateCode" placeholder="请选择界别">
                 <el-option
-                    v-for="item in GraduateList"
-                    :key="item.graduateCode"
-                    :label="item.graduateName"
-                    :value="item.graduateCode"
-                    :disabled="item.status == 1"
+                  v-for="item in GraduateList"
+                  :key="item.graduateCode"
+                  :label="item.graduateName"
+                  :value="item.graduateCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -329,11 +329,11 @@
             <el-form-item label="学期" prop="termCode">
               <el-select v-model="form.termCode" placeholder="请选择学期">
                 <el-option
-                    v-for="item in TermList"
-                    :key="item.termCode"
-                    :label="item.termName"
-                    :value="item.termCode"
-                    :disabled="item.status == 1"
+                  v-for="item in TermList"
+                  :key="item.termCode"
+                  :label="item.termName"
+                  :value="item.termCode"
+                  :disabled="item.status == 1"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -348,9 +348,9 @@
           <el-col>
             <el-form-item label="备注" prop="remark">
               <el-input
-                  v-model="form.remark"
-                  type="textarea"
-                  placeholder="请输入内容"
+                v-model="form.remark"
+                type="textarea"
+                placeholder="请输入内容"
               />
             </el-form-item>
           </el-col>
@@ -359,9 +359,9 @@
           <el-form-item label="状态">
             <el-radio-group v-model="form.status">
               <el-radio
-                  v-for="dict in statusOptions"
-                  :key="dict.dictValue"
-                  :label="parseInt(dict.dictValue)"
+                v-for="dict in statusOptions"
+                :key="dict.dictValue"
+                :label="parseInt(dict.dictValue)"
               >{{ dict.dictLabel }}
               </el-radio>
             </el-radio-group>

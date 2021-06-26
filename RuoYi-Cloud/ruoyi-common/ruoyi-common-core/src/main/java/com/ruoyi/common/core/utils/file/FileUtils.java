@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author ruoyi
  */
-public class FileUtils extends org.apache.commons.io.FileUtils {
+public class FileUtils  {
 
   /**
    * 字符常量：斜杠 {@code '/'}

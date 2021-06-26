@@ -6,8 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || '增值评价系统' // 标题
-
+const name = process.env.VUE_APP_TITLE || '增值评价系统' // 网页标题
 const port = process.env.port || process.env.npm_config_port || 90 // 端口
 
 // vue.config.js 配置说明

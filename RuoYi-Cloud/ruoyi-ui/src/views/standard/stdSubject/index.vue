@@ -4,39 +4,39 @@
              label-width="68px">
       <el-form-item label="名称" prop="subjectName">
         <el-input
-            v-model="queryParams.subjectName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.subjectName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="代码" prop="subjectCode">
         <el-input
-            v-model="queryParams.subjectCode"
-            placeholder="请输入代码"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.subjectCode"
+          placeholder="请输入代码"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="科目别名" prop="subjectOtherName">
         <el-input
-            v-model="queryParams.subjectOtherName"
-            placeholder="请输入科目别名"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.subjectOtherName"
+          placeholder="请输入科目别名"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="科目类型" prop="subjectTypeCode">
         <el-select v-model="queryParams.subjectTypeCode" placeholder="请输入科目类型">
           <el-option
-              v-for="item in subjectTypes"
-              :key="item.subjectTypeCode"
-              :label="item.subjectTypeName"
-              :value="item.subjectTypeCode"
-              :disabled="item.status == 1"
+            v-for="item in subjectTypes"
+            :key="item.subjectTypeCode"
+            :label="item.subjectTypeName"
+            :value="item.subjectTypeCode"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -49,43 +49,43 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['standard:stdSubject:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['standard:stdSubject:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['standard:stdSubject:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['standard:stdSubject:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['standard:stdSubject:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['standard:stdSubject:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['standard:stdSubject:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['standard:stdSubject:export']"
         >导出
         </el-button>
       </el-col>
@@ -106,19 +106,19 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['standard:stdSubject:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['standard:stdSubject:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['standard:stdSubject:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['standard:stdSubject:remove']"
           >删除
           </el-button>
         </template>
@@ -126,11 +126,11 @@
     </el-table>
 
     <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改科目管理对话框 -->
@@ -148,11 +148,11 @@
         <el-form-item label="科目类型" prop="subjectTypeCode">
           <el-select v-model="form.subjectTypeCode" placeholder="请输入科目类型">
             <el-option
-                v-for="item in subjectTypes"
-                :key="item.subjectTypeCode"
-                :label="item.subjectTypeName"
-                :value="item.subjectTypeCode"
-                :disabled="item.status == 1"
+              v-for="item in subjectTypes"
+              :key="item.subjectTypeCode"
+              :label="item.subjectTypeName"
+              :value="item.subjectTypeCode"
+              :disabled="item.status == 1"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -162,11 +162,11 @@
         <el-form-item label="科目分类" prop="subjectClassifyCode">
           <el-select v-model="form.subjectClassifyCode" placeholder="请输入科目分类">
             <el-option
-                v-for="item in subjectClassifys"
-                :key="item.subjectClassifyCode"
-                :label="item.subjectClassifyName"
-                :value="item.subjectClassifyCode"
-                :disabled="item.status == 1"
+              v-for="item in subjectClassifys"
+              :key="item.subjectClassifyCode"
+              :label="item.subjectClassifyName"
+              :value="item.subjectClassifyCode"
+              :disabled="item.status == 1"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -179,9 +179,9 @@
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{dict.dictLabel}}
             </el-radio>
           </el-radio-group>

@@ -1,36 +1,36 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="名称" prop="projectTypeName">
         <el-input
-            v-model="queryParams.projectTypeName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.projectTypeName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="代码" prop="projectTypeCode">
         <el-input
-            v-model="queryParams.projectTypeCode"
-            placeholder="请输入代码"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.projectTypeCode"
+          placeholder="请输入代码"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button
         >
@@ -44,56 +44,56 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['analysis:alyType:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['analysis:alyType:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['analysis:alyType:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['analysis:alyType:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['analysis:alyType:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['analysis:alyType:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['analysis:alyType:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['analysis:alyType:export']"
         >导出
         </el-button>
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="alyTypeList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="alyTypeList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="主键" align="center" prop="projectTypeId"/>
@@ -102,25 +102,25 @@
       <el-table-column label="排序" align="center" prop="orderNum"/>
       <el-table-column label="备注" align="center" prop="remark"/>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['analysis:alyType:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['analysis:alyType:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['analysis:alyType:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['analysis:alyType:remove']"
           >删除
           </el-button>
         </template>
@@ -128,20 +128,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改 分析项目类型对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="名称" prop="projectTypeName">
@@ -155,9 +155,9 @@
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
-              v-model="form.remark"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.remark"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
       </el-form>
@@ -327,7 +327,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return delAlyType(projectTypeIds)
         }).then(() => {
           this.getList()
@@ -341,7 +341,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return exportAlyType(queryParams)
         }).then(response => {
           this.download(response.msg)

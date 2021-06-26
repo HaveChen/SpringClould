@@ -1,36 +1,36 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="考试" prop="examId" v-if="hiddenKey">
         <el-input
-            v-model="searchKey"
-            placeholder="请输入考试"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="searchKey"
+          placeholder="请输入考试"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="试卷名称" prop="testpaperName">
         <el-input
-            v-model="queryParams.testpaperName"
-            placeholder="请输入试卷名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.testpaperName"
+          placeholder="请输入试卷名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button
         >
@@ -44,11 +44,11 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
         >修改
         </el-button
         >
@@ -56,11 +56,11 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
         >删除
         </el-button
         >
@@ -68,77 +68,77 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
         >导出
         </el-button
         >
         <!-- v-hasPermi="['collection:cltTestpaper:export']" -->
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="cltTestpaperList"
-        @selection-change="handleSelectionChange"
-        @expand-change="getTestpaperDetList"
+      v-loading="loading"
+      :data="cltTestpaperList"
+      @selection-change="handleSelectionChange"
+      @expand-change="getTestpaperDetList"
     >
       <el-table-column type="expand">
         <template slot-scope="scope">
           <el-table
-              :data="scope.row.ruleItemData"
-              tooltip-effect="dark"
-              style="width: 100%"
+            :data="scope.row.ruleItemData"
+            tooltip-effect="dark"
+            style="width: 100%"
           >
             <el-table-column
-                v-if="hiddenKey"
-                label="主键"
-                align="center"
-                prop="testpaperDetailId"
+              v-if="hiddenKey"
+              label="主键"
+              align="center"
+              prop="testpaperDetailId"
             />
             <el-table-column
-                v-if="hiddenKey"
-                label="试卷"
-                align="center"
-                prop="testpaperId"
+              v-if="hiddenKey"
+              label="试卷"
+              align="center"
+              prop="testpaperId"
             />
             <el-table-column
-                v-if="hiddenKey"
-                label="考试"
-                align="center"
-                prop="examId"
+              v-if="hiddenKey"
+              label="考试"
+              align="center"
+              prop="examId"
             />
             <el-table-column label="科目" align="center" prop="subjectId"/>
             <el-table-column label="试卷满分" align="center" prop="fullscore"/>
             <el-table-column label="客观题成绩" align="center" prop="kgscore"/>
             <el-table-column label="主观题成绩" align="center" prop="zgscore"/>
             <el-table-column
-                label="操作"
-                align="center"
-                class-name="small-padding fixed-width"
+              label="操作"
+              align="center"
+              class-name="small-padding fixed-width"
             >
               <template slot-scope="scope">
                 <el-button
-                    size="mini"
-                    type="text"
-                    icon="el-icon-edit"
-                    @click="handleUpdate(scope.row)"
-                    v-hasPermi="['collection:cltTestpaperDetail:edit']"
+                  size="mini"
+                  type="text"
+                  icon="el-icon-edit" plain
+                  @click="handleUpdate(scope.row)"
+                  v-hasPermi="['collection:cltTestpaperDetail:edit']"
                 >修改
                 </el-button
                 >
                 <el-button
-                    size="mini"
-                    type="text"
-                    icon="el-icon-delete"
-                    @click="handleDelete(scope.row)"
-                    v-hasPermi="['collection:cltTestpaperDetail:remove']"
+                  size="mini"
+                  type="text"
+                  icon="el-icon-delete" plain
+                  @click="handleDelete(scope.row)"
+                  v-hasPermi="['collection:cltTestpaperDetail:remove']"
                 >删除
                 </el-button
                 >
@@ -150,37 +150,37 @@
       <el-table-column type="selection" width="55" align="center"/>
 
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          prop="testpaperId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        prop="testpaperId"
       />
       <el-table-column
-          v-if="hiddenKey"
-          label="考试"
-          align="center"
-          prop="examId"
+        v-if="hiddenKey"
+        label="考试"
+        align="center"
+        prop="examId"
       />
       <el-table-column label="试卷名称" align="center" prop="testpaperName"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="试卷类型"
-          align="center"
-          prop="testpaperType"
+        v-if="hiddenKey"
+        label="试卷类型"
+        align="center"
+        prop="testpaperType"
       />
       <el-table-column label="试卷满分" align="center" prop="fullscore"/>
       <el-table-column label="是否有细目表" align="center">
         <template slot-scope="scope">
           <el-tooltip
-              class="item"
-              effect="light"
-              content="详情"
-              placement="top-start"
-              v-if="hasTablePan(scope.row)"
+            class="item"
+            effect="light"
+            content="详情"
+            placement="top-start"
+            v-if="hasTablePan(scope.row)"
           >
             <router-link
-                :to="`/collection/exam/cltItemDetail/${scope.row.examId}/${scope.row.testpaperId}`"
-                class="link-type"
+              :to="`/collection/exam/cltItemDetail/${scope.row.examId}/${scope.row.testpaperId}`"
+              class="link-type"
             >
               <span>{{ hasTableFormat(scope.row) }}</span>
             </router-link>
@@ -191,15 +191,15 @@
       <el-table-column label="是否有成绩" align="center">
         <template slot-scope="scope">
           <el-tooltip
-              class="item"
-              effect="light"
-              content="详情"
-              placement="top-start"
-              v-if="hasCjPan(scope.row)"
+            class="item"
+            effect="light"
+            content="详情"
+            placement="top-start"
+            v-if="hasCjPan(scope.row)"
           >
             <router-link
-                :to="`/collection/exam/cjDetail/${scope.row.examId}/${scope.row.testpaperId}`"
-                class="link-type"
+              :to="`/collection/exam/cjDetail/${scope.row.examId}/${scope.row.testpaperId}`"
+              class="link-type"
             >
               <span>{{ hasExamFormat(scope.row) }}</span>
             </router-link>
@@ -208,25 +208,25 @@
         </template>
       </el-table-column>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
           >修改
           </el-button
           >
           <!-- v-hasPermi="['collection:cltTestpaper:edit']" -->
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
           >删除
           </el-button
           >
@@ -236,20 +236,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改试卷对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item v-if="hiddenUpdata" label="考试" prop="examId">
@@ -277,17 +277,17 @@
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
-              v-model="form.remark"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.remark"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item v-if="hiddenUpdata" label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{ dict.dictLabel }}
             </el-radio
             >
@@ -520,7 +520,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return delCltTestpaper(testpaperIds)
         }).then(() => {
           this.getList()
@@ -534,7 +534,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return exportCltTestpaper(queryParams)
         }).then(response => {
           this.download(response.msg)

@@ -33,6 +33,13 @@
           <span>更新日志</span>
         </div>
         <el-collapse accordion>
+          <el-collapse-item title="v3.0.0 - 2021-06-26">
+            <ol>
+              <li>同步线上6.25版本</li>
+              <li>修改操作按钮样式保持统一</li>
+              <li>操作日志和登录日志添加部分字段排序功能</li>
+            </ol>
+          </el-collapse-item>
           <el-collapse-item title="v3.0.0 - 2021-06-11">
             <ol>
               <li>升级版本到3.0.0</li>

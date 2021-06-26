@@ -51,7 +51,7 @@
         <el-button
           type="success"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-edit"  plain
           size="mini"
           :disabled="single"
           @click="handleUpdate"

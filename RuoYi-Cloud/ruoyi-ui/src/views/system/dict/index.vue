@@ -129,7 +129,11 @@
           </router-link>
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status" :formatter="statusFormat"/>
+      <el-table-column label="状态" align="center" prop="status">
+        <template slot-scope="scope">
+          <dict-tag :options="statusOptions" :value="scope.row.status"/>
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true"/>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
@@ -141,7 +145,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-edit" plain
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:dict:edit']"
           >修改
@@ -206,7 +210,7 @@
     refreshCache,
     updateType
   } from "@/api/system/dict/type";
-
+  // 字典标签组件（使用频繁可在全局挂载）
   export default {
     name: 'Dict',
     data() {
@@ -270,10 +274,6 @@
             this.loading = false
           }
         )
-      },
-      // 字典状态字典翻译
-      statusFormat(row, column) {
-        return this.selectDictLabel(this.statusOptions, row.status)
       },
       // 取消按钮
       cancel() {
@@ -356,7 +356,8 @@
         }).then(() => {
           this.getList()
           this.msgSuccess('删除成功')
-        }).catch(() => {});
+        }).catch(() => {
+        });
       },
       /** 导出按钮操作 */
       handleExport() {

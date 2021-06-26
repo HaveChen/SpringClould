@@ -4,30 +4,30 @@
              label-width="68px">
       <el-form-item label="名称" prop="gradeName">
         <el-input
-            v-model="queryParams.gradeName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.gradeName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="代码" prop="gradeCode">
         <el-input
-            v-model="queryParams.gradeCode"
-            placeholder="请输入代码"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.gradeCode"
+          placeholder="请输入代码"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="学段" prop="studyLevelCode">
         <el-select v-model="queryParams.studyLevelCode" placeholder="请输入学段">
           <el-option
-              v-for="item in studyLevels"
-              :key="item.studyLevelCode"
-              :label="item.studyLevelName"
-              :value="item.studyLevelCode"
-              :disabled="item.status == 1"
+            v-for="item in studyLevels"
+            :key="item.studyLevelCode"
+            :label="item.studyLevelName"
+            :value="item.studyLevelCode"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -40,43 +40,43 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['standard:stdGrade:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['standard:stdGrade:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['standard:stdGrade:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['standard:stdGrade:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['standard:stdGrade:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['standard:stdGrade:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['standard:stdGrade:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['standard:stdGrade:export']"
         >导出
         </el-button>
       </el-col>
@@ -94,19 +94,19 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['standard:stdGrade:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['standard:stdGrade:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['standard:stdGrade:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['standard:stdGrade:remove']"
           >删除
           </el-button>
         </template>
@@ -114,11 +114,11 @@
     </el-table>
 
     <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改年级对话框 -->
@@ -133,11 +133,11 @@
         <el-form-item label="学段" prop="studyLevelCode">
           <el-select v-model="form.studyLevelCode" placeholder="请输入学段">
             <el-option
-                v-for="item in studyLevels"
-                :key="item.studyLevelCode"
-                :label="item.studyLevelName"
-                :value="item.studyLevelCode"
-                :disabled="item.status == 1"
+              v-for="item in studyLevels"
+              :key="item.studyLevelCode"
+              :label="item.studyLevelName"
+              :value="item.studyLevelCode"
+              :disabled="item.status == 1"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -150,9 +150,9 @@
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{dict.dictLabel}}
             </el-radio>
           </el-radio-group>

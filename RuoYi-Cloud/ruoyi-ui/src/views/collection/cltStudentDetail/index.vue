@@ -1,45 +1,45 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item v-if="hiddenExam" label="考试" prop="examId">
         <el-input
-            v-model="searchKey"
-            placeholder="请输入考试Id"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="searchKey"
+          placeholder="请输入考试Id"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="学号" prop="studentNum">
         <el-input
-            v-model="queryParams.studentNum"
-            placeholder="请输入学号"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.studentNum"
+          placeholder="请输入学号"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="准考证号" prop="studentZkzh">
         <el-input
-            v-model="queryParams.studentZkzh"
-            placeholder="请输入准考证号"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.studentZkzh"
+          placeholder="请输入准考证号"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button
         >
@@ -53,71 +53,71 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-if="hiddenAdd"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-if="hiddenAdd"
         >新增
         </el-button>
         <!-- v-hasPermi="['collection:cltStudentDetail:add']" -->
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
         >修改
         </el-button>
         <!-- v-hasPermi="['collection:cltStudentDetail:edit']" -->
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
         >删除
         </el-button>
         <!-- v-hasPermi="['collection:cltStudentDetail:remove']" -->
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
         >导出
         </el-button>
         <!-- v-hasPermi="['collection:cltStudentDetail:export']" -->
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="cltStudentDetailList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="cltStudentDetailList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          hiddern
-          prop="studentId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        hiddern
+        prop="studentId"
       />
       <el-table-column
-          v-if="hiddenKey"
-          label="考试主键"
-          align="center"
-          prop="examId"
+        v-if="hiddenKey"
+        label="考试主键"
+        align="center"
+        prop="examId"
       />
       <el-table-column label="名称" align="center" prop="studentName"/>
       <el-table-column label="学号" align="center" prop="studentNum"/>
@@ -126,24 +126,24 @@
       <el-table-column label="班级" align="center" prop="classCode"/>
       <el-table-column label="学校" align="center" prop="schoolCode"/>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
           >修改
           </el-button>
           <!-- v-hasPermi="['collection:cltStudentDetail:edit']" -->
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
           >删除
           </el-button>
           <!-- v-hasPermi="['collection:cltStudentDetail:remove']" -->
@@ -152,20 +152,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改学生信息采集对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item v-if="hiddenUpdate" label="考试主键" prop="examId">
@@ -182,23 +182,23 @@
         </el-form-item>
         <el-form-item v-if="hiddenUpdate" label="选考类型" prop="studentCombineCode">
           <el-select
-              v-model="form.studentCombineCode"
-              placeholder="请选择选考类型"
+            v-model="form.studentCombineCode"
+            placeholder="请选择选考类型"
           >
             <el-option label="请选择字典生成" value=""/>
           </el-select>
         </el-form-item>
         <el-form-item v-if="hiddenUpdate" label="外语科目" prop="foreignSubjectCode">
           <el-input
-              v-model="form.foreignSubjectCode"
-              placeholder="请输入外语科目"
+            v-model="form.foreignSubjectCode"
+            placeholder="请输入外语科目"
           />
         </el-form-item>
         <el-form-item label="选考科目名称" prop="subjects">
           <el-input
-              v-model="form.subjects"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.subjects"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item label="班级" prop="classCode">
@@ -209,8 +209,8 @@
         </el-form-item>
         <el-form-item v-if="hiddenUpdate" label="所有上级代码" prop="parentsCode">
           <el-input
-              v-model="form.parentsCode"
-              placeholder="请输入所有上级代码"
+            v-model="form.parentsCode"
+            placeholder="请输入所有上级代码"
           />
         </el-form-item>
         <el-form-item label="扩展字段" prop="extensions">
@@ -221,17 +221,17 @@
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
-              v-model="form.remark"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.remark"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{ dict.dictLabel }}
             </el-radio>
           </el-radio-group>

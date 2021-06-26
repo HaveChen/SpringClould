@@ -39,7 +39,7 @@
       <el-col :span="1.5">
         <el-button
           type="primary"
-          icon="el-icon-plus"
+          icon="el-icon-plus" plain
           size="mini"
           @click="handleAdd"
           v-hasPermi="['reportOnline:reportChartDetail:add']"
@@ -49,7 +49,7 @@
       <el-col :span="1.5">
         <el-button
           type="success"
-          icon="el-icon-edit"
+          icon="el-icon-edit" plain
           size="mini"
           :disabled="single"
           @click="handleUpdate"
@@ -60,7 +60,7 @@
       <el-col :span="1.5">
         <el-button
           type="danger"
-          icon="el-icon-delete"
+          icon="el-icon-delete" plain
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
@@ -71,7 +71,7 @@
       <el-col :span="1.5">
         <el-button
           type="warning"
-          icon="el-icon-download"
+          icon="el-icon-download" plain
           size="mini"
           @click="handleExport"
           v-hasPermi="['reportOnline:reportChartDetail:export']"
@@ -102,7 +102,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-edit" plain
             @click="handleUpdate(scope.row)"
             v-hasPermi="['reportOnline:reportChartDetail:edit']"
           >修改
@@ -110,7 +110,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
+            icon="el-icon-delete" plain
             @click="handleDelete(scope.row)"
             v-hasPermi="['reportOnline:reportChartDetail:remove']"
           >删除
@@ -128,7 +128,8 @@
     />
 
     <!-- 添加或修改图明细对话框 -->
-    <el-dialog :close-on-click-modal="this.$store.state.pubCon.isDialogClose" :title="title" :visible.sync="open" width="500px" append-to-body>
+    <el-dialog :close-on-click-modal="this.$store.state.pubCon.isDialogClose" :title="title"
+               :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="关联资源" prop="resourceId">
           <el-input v-model="form.resourceId" placeholder="请输入关联资源"/>
@@ -245,7 +246,7 @@
         // 总条数
         total: 0,
         // 隐藏主键
-        hiddenKey:false,
+        hiddenKey: false,
         // 图明细表格数据
         reportChartDetailList: [],
         // 弹出层标题

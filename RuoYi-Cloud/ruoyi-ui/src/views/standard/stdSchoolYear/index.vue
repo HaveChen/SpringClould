@@ -1,47 +1,47 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="名称" prop="schoolYearName">
         <el-input
-            v-model="queryParams.schoolYearName"
-            placeholder="请输入名称"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.schoolYearName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="代码" prop="schoolYearCode">
         <el-input
-            v-model="queryParams.schoolYearCode"
-            placeholder="请输入代码"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.schoolYearCode"
+          placeholder="请输入代码"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="学段" prop="studyLevelCode">
         <el-select v-model="queryParams.studyLevelCode" placeholder="请选择学段">
           <el-option
-              v-for="item in studyLevels"
-              :key="item.studyLevelCode"
-              :label="item.studyLevelName"
-              :value="item.studyLevelCode"
-              :disabled="item.status == 1"
+            v-for="item in studyLevels"
+            :key="item.studyLevelCode"
+            :label="item.studyLevelName"
+            :value="item.studyLevelCode"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button
         >
@@ -55,93 +55,93 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-            v-hasPermi="['standard:stdSchoolYear:add']"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['standard:stdSchoolYear:add']"
         >新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
-            v-hasPermi="['standard:stdSchoolYear:edit']"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['standard:stdSchoolYear:edit']"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
-            v-hasPermi="['standard:stdSchoolYear:remove']"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['standard:stdSchoolYear:remove']"
         >删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
-            v-hasPermi="['standard:stdSchoolYear:export']"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['standard:stdSchoolYear:export']"
         >导出
         </el-button>
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="stdSchoolYearList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="stdSchoolYearList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          prop="schoolYearId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        prop="schoolYearId"
       />
       <el-table-column label="名称" align="center" prop="schoolYearName"/>
       <el-table-column label="代码" align="center" prop="schoolYearCode"/>
       <el-table-column
-          label="学段"
-          align="center"
-          prop="studyLevelCode"
-          :formatter="studyLevelFormat"
+        label="学段"
+        align="center"
+        prop="studyLevelCode"
+        :formatter="studyLevelFormat"
       />
       <el-table-column label="排序" align="center" prop="orderNum"/>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-              v-hasPermi="['standard:stdSchoolYear:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['standard:stdSchoolYear:edit']"
           >修改
           </el-button>
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['standard:stdSchoolYear:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['standard:stdSchoolYear:remove']"
           >删除
           </el-button>
         </template>
@@ -149,11 +149,11 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改学年对话框 -->
@@ -168,11 +168,11 @@
         <el-form-item label="学段" prop="studyLevelCode">
           <el-select v-model="form.studyLevelCode" placeholder="请选择学段">
             <el-option
-                v-for="item in studyLevels"
-                :key="item.studyLevelCode"
-                :label="item.studyLevelName"
-                :value="item.studyLevelCode"
-                :disabled="item.status == 1"
+              v-for="item in studyLevels"
+              :key="item.studyLevelCode"
+              :label="item.studyLevelName"
+              :value="item.studyLevelCode"
+              :disabled="item.status == 1"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -181,17 +181,17 @@
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
-              v-model="form.remark"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.remark"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{ dict.dictLabel }}
             </el-radio>
           </el-radio-group>

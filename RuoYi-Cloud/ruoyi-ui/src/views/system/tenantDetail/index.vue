@@ -34,7 +34,7 @@
         <el-button
           type="success"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-edit" plain
           size="mini"
           :disabled="single"
           @click="handleUpdate"
@@ -81,7 +81,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-edit" plain
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:tenantDetail:edit']"
           >修改

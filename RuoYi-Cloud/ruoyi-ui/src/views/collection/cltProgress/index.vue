@@ -1,34 +1,34 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="考试" prop="examId" v-if="hiddenKey">
         <el-input
-            v-model="searchKey"
-            placeholder="请输入考试"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="searchKey"
+          placeholder="请输入考试"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="识别类型" prop="importType">
         <el-select
-            clearable
-            v-model="queryParams.importType"
-            @change="searchList"
-            placeholder="请选择识别类型"
+          clearable
+          v-model="queryParams.importType"
+          @change="searchList"
+          placeholder="请选择识别类型"
         >
           <el-option
-              v-for="item in chushiExamType"
-              :key="item.dataTypeCode"
-              :label="item.dataTypeName"
-              :value="item.dataTypeCode"
-              :disabled="item.status == 1"
+            v-for="item in chushiExamType"
+            :key="item.dataTypeCode"
+            :label="item.dataTypeName"
+            :value="item.dataTypeCode"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -37,67 +37,67 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
         >删除
         </el-button>
         <!-- v-hasPermi="['collection:cltProgress:remove']" -->
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
         >导出
         </el-button>
         <!-- v-hasPermi="['collection:cltProgress:export']" -->
       </el-col>
       <el-col :span="1.5">
         <el-button
-            size="mini"
-            type="success"
-            icon="el-icon-upload"
-            @click="handleUpload"
+          size="mini"
+          type="success"
+          icon="el-icon-upload"
+          @click="handleUpload"
         >上传
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="info"
-            icon="el-icon-message"
-            size="mini"
-            @click="handleImport"
+          type="info"
+          icon="el-icon-message"
+          size="mini"
+          @click="handleImport"
         >导入
         </el-button>
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
     <!-- 导入对话框 -->
     <el-dialog
-        :title="upload.title"
-        :visible.sync="upload.open"
-        width="400px"
-        append-to-body
+      :title="upload.title"
+      :visible.sync="upload.open"
+      width="400px"
+      append-to-body
     >
       <el-upload
-          ref="upload"
-          :limit="10"
-          :multiple="true"
-          accept=".xlsx, .xls,.zip,.rar"
-          :headers="upload.headers"
-          :action="upload.url + '?importType=bmk&examId=' + upload.examId"
-          :disabled="upload.isUploading"
-          :on-progress="handleFileUploadProgress"
-          :on-success="handleFileSuccess"
-          :auto-upload="false"
-          drag
+        ref="upload"
+        :limit="10"
+        :multiple="true"
+        accept=".xlsx, .xls,.zip,.rar"
+        :headers="upload.headers"
+        :action="upload.url + '?importType=bmk&examId=' + upload.examId"
+        :disabled="upload.isUploading"
+        :on-progress="handleFileUploadProgress"
+        :on-success="handleFileSuccess"
+        :auto-upload="false"
+        drag
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">
@@ -114,59 +114,59 @@
       </div>
     </el-dialog>
     <el-table
-        v-loading="loading"
-        :data="cltProgressList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="cltProgressList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          prop="progressId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        prop="progressId"
       />
       <el-table-column
-          v-if="hiddenKey"
-          label="考试"
-          align="center"
-          prop="examId"
+        v-if="hiddenKey"
+        label="考试"
+        align="center"
+        prop="examId"
       />
       <el-table-column label="文件名称" align="center" prop="fileName"/>
       <el-table-column
-          label="识别类型"
-          align="center"
-          prop="importType"
-          :formatter="dataTypeFormat"
+        label="识别类型"
+        align="center"
+        prop="importType"
+        :formatter="dataTypeFormat"
       />
       <el-table-column label="解析科目" align="center" prop="subjectCode"/>
       <el-table-column label="总行数" align="center" prop="sumLine"/>
       <el-table-column label="成功行数" align="center" prop="sucessLine"/>
       <el-table-column
-          label="采集状态"
-          align="center"
-          prop="importStatus"
-          :formatter="importStatusFormat"
+        label="采集状态"
+        align="center"
+        prop="importStatus"
+        :formatter="importStatusFormat"
       />
       <el-table-column label="最后操作时间" align="center" prop="updateTime"/>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
           >详情
           </el-button>
           <!-- v-hasPermi="['collection:cltProgress:edit']" -->
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
           >删除
           </el-button>
           <!-- v-hasPermi="['collection:cltProgress:remove']" -->
@@ -175,20 +175,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改采集进度对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="考试" prop="examId">
@@ -203,9 +203,9 @@
         </el-form-item>
         <el-form-item label="字段匹配" prop="fieldMapping">
           <el-input
-              v-model="form.fieldMapping"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.fieldMapping"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item label="总行数" prop="sumLine">
@@ -222,9 +222,9 @@
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
-              v-model="form.remark"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.remark"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
       </el-form>

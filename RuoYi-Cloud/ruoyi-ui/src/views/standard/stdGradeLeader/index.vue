@@ -67,7 +67,7 @@
       <el-col :span="1.5">
         <el-button
           type="primary"
-          icon="el-icon-plus"
+          icon="el-icon-plus" plain
           size="mini"
           @click="handleAdd"
           v-hasPermi="['standard:stdGradeLeader:add']"
@@ -77,7 +77,7 @@
       <el-col :span="1.5">
         <el-button
           type="success"
-          icon="el-icon-edit"
+          icon="el-icon-edit" plain
           size="mini"
           :disabled="single"
           @click="handleUpdate"
@@ -88,7 +88,7 @@
       <el-col :span="1.5">
         <el-button
           type="danger"
-          icon="el-icon-delete"
+          icon="el-icon-delete" plain
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
@@ -99,7 +99,7 @@
       <el-col :span="1.5">
         <el-button
           type="warning"
-          icon="el-icon-download"
+          icon="el-icon-download" plain
           size="mini"
           @click="handleExport"
           v-hasPermi="['standard:stdGradeLeader:export']"
@@ -168,7 +168,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-edit" plain
             @click="handleUpdate(scope.row)"
             v-hasPermi="['standard:stdGradeLeader:edit']"
           >修改
@@ -176,7 +176,7 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
+            icon="el-icon-delete" plain
             @click="handleDelete(scope.row)"
             v-hasPermi="['standard:stdGradeLeader:remove']"
           >删除

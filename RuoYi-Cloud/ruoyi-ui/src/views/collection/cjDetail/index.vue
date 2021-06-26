@@ -1,19 +1,19 @@
 <template>
   <div class="app-container">
     <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="68px"
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
     >
       <el-form-item label="考试" prop="examId" v-if="hiddenKey">
         <el-input
-            v-model="searchKey"
-            placeholder="请输入考试"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="searchKey"
+          placeholder="请输入考试"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <!--      <el-form-item label="学校" prop="deptCode">-->
@@ -30,39 +30,39 @@
       <el-form-item label="试卷" prop="testpaperId">
         <el-select v-model="queryParams.testpaperId" placeholder="请选择试卷">
           <el-option
-              v-for="item in listTestpaperItem"
-              :key="item.testpaperId"
-              :label="item.testpaperName"
-              :value="item.testpaperId"
-              :disabled="item.status == 1"
+            v-for="item in listTestpaperItem"
+            :key="item.testpaperId"
+            :label="item.testpaperName"
+            :value="item.testpaperId"
+            :disabled="item.status == 1"
           ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="准考证号" prop="studentZkzh">
         <el-input
-            v-model="queryParams.studentZkzh"
-            placeholder="请输入准考证号"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
+          v-model="queryParams.studentZkzh"
+          placeholder="请输入准考证号"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="成绩标识" prop="cjSign">
         <el-select v-model="queryParams.cjSign" placeholder="请选择成绩标识">
           <el-option
-              v-for="item in cjSigns"
-              :key="item.dictValue"
-              :label="item.dictLabel"
-              :value="item.dictValue"
+            v-for="item in cjSigns"
+            :key="item.dictValue"
+            :label="item.dictLabel"
+            :value="item.dictValue"
           ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
-            type="cyan"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleQuery"
+          type="cyan"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
         >搜索
         </el-button
         >
@@ -76,11 +76,11 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            v-if="hiddenAdd"
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
+          v-if="hiddenAdd"
+          type="primary"
+          icon="el-icon-plus" plain
+          size="mini"
+          @click="handleAdd"
         >新增
         </el-button
         >
@@ -88,11 +88,11 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            icon="el-icon-edit"
-            size="mini"
-            :disabled="single"
-            @click="handleUpdate"
+          type="success"
+          icon="el-icon-edit" plain
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
         >修改
         </el-button
         >
@@ -100,11 +100,11 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :disabled="multiple"
-            @click="handleDelete"
+          type="danger"
+          icon="el-icon-delete" plain
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
         >删除
         </el-button
         >
@@ -112,38 +112,38 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            icon="el-icon-download"
-            size="mini"
-            @click="handleExport"
+          type="warning"
+          icon="el-icon-download" plain
+          size="mini"
+          @click="handleExport"
         >导出
         </el-button
         >
         <!-- v-hasPermi="['collection:cjDetail:export']" -->
       </el-col>
       <right-toolbar
-          :showSearch.sync="showSearch"
-          @queryTable="getList"
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
       ></right-toolbar>
     </el-row>
 
     <el-table
-        v-loading="loading"
-        :data="cjDetailList"
-        @selection-change="handleSelectionChange"
+      v-loading="loading"
+      :data="cjDetailList"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column
-          v-if="hiddenKey"
-          label="主键"
-          align="center"
-          prop="cjId"
+        v-if="hiddenKey"
+        label="主键"
+        align="center"
+        prop="cjId"
       />
       <el-table-column
-          label="试卷"
-          align="center"
-          prop="testpaperId"
-          :formatter="testpaperFormat"
+        label="试卷"
+        align="center"
+        prop="testpaperId"
+        :formatter="testpaperFormat"
       />
       <el-table-column label="准考证号" align="center" prop="studentZkzh"/>
       <el-table-column label="成绩标识" align="center" prop="cjSign" :formatter="cjSignFormat"/>
@@ -151,25 +151,25 @@
       <el-table-column label="客观题总分" align="center" prop="kgScore"/>
       <el-table-column label="主观题总分" align="center" prop="zgScore"/>
       <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-edit" plain
+            @click="handleUpdate(scope.row)"
           >修改
           </el-button
           >
           <!-- v-hasPermi="['collection:cjDetail:edit']" -->
           <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
+            size="mini"
+            type="text"
+            icon="el-icon-delete" plain
+            @click="handleDelete(scope.row)"
           >删除
           </el-button
           >
@@ -179,20 +179,20 @@
     </el-table>
 
     <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
     />
 
     <!-- 添加或修改成绩数据采集对话框 -->
     <el-dialog
-        :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
-        :title="title"
-        :visible.sync="open"
-        width="500px"
-        append-to-body
+      :close-on-click-modal="this.$store.state.pubCon.isDialogClose"
+      :title="title"
+      :visible.sync="open"
+      width="500px"
+      append-to-body
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="考试" prop="examId">
@@ -206,18 +206,18 @@
         </el-form-item>
         <el-form-item label="准考证号" prop="studentZkzh">
           <el-input
-              v-model="form.studentZkzh"
-              type="textarea"
-              placeholder="请输入内容"
+            v-model="form.studentZkzh"
+            type="textarea"
+            placeholder="请输入内容"
           />
         </el-form-item>
         </el-form-item>
         <el-form-item label="成绩标识" prop="cjSign">
           <el-radio-group v-model="form.cjSign">
             <el-radio
-                v-for="dict in cjSigns"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in cjSigns"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{ dict.dictLabel }}
             </el-radio
             >
@@ -238,9 +238,9 @@
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
             <el-radio
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="parseInt(dict.dictValue)"
+              v-for="dict in statusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
             >{{ dict.dictLabel }}
             </el-radio
             >
@@ -465,7 +465,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return delCjDetail(cjIds)
         }).then(() => {
           this.getList()
@@ -479,7 +479,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function() {
+        }).then(function () {
           return exportCjDetail(queryParams)
         }).then(response => {
           this.download(response.msg)

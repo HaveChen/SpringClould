@@ -135,7 +135,7 @@
               @command="handleDelete($event, scope.row)"
           >
             <el-button
-                icon="el-icon-delete"
+                icon="el-icon-delete" plain
                 size="mini"
                 type="text"
                 class="el-dropdown-link"
